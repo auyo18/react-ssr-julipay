@@ -1,0 +1,146 @@
+@import "./mixin";
+
+* {
+  box-sizing: border-box;
+}
+
+*:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font: $font-size-medium "PingFangSC-Regular", "Helvetica", "Arial", "Microsoft Yahei", sans-serif;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  background-color: $color-background;
+  color: $color-text;
+  margin: 0 auto;
+  min-width: $min-width;
+  max-width: $max-width;
+}
+
+html {
+  font-size: $html-size + px;
+  font-size: $html-size / 3.75 + vw;
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: $html-size * 320 / 375 + px;
+  }
+}
+
+@media screen and (min-width: 540px) {
+  html {
+    font-size: $html-size * 540 / 375 + px;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  html {
+    font-size: $html-size + px;
+  }
+}
+
+img {
+  user-select: none;
+}
+
+#root {
+  margin: 60px 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.default-title {
+  font-size: $font-size-large-x;
+  margin-bottom: .4rem;
+
+  span {
+    font-weight: bold;
+
+    &.alias {
+      color: $color-text-d;
+      margin-left: .2rem;
+      font-size: $font-size-large;
+    }
+  }
+}
+
+.default-switch {
+  @include flex();
+  justify-content: space-around;
+  margin-bottom: .5rem;
+
+  span {
+    line-height: 1;
+    display: block;
+    padding: .15rem .4rem;
+    background-color: $color-background-q;
+    border-radius: 10rem;
+    transition: background-color .2s, color .2s;
+
+    &.cur {
+      background-color: $color-theme;
+      color: $color-background;
+    }
+  }
+}
+
+.course {
+  @include flex();
+  transition: color .5s;
+
+  .item {
+    width: 25%;
+    text-align: center;
+    color: $color-text;
+
+    .icon {
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      margin: 0 auto .2rem auto;
+      line-height: 2;
+      font-size: $font-size-large-xx;
+      background-color: $color-background-q;
+      border-radius: 50px;
+    }
+
+    .alias {
+      color: $color-text-l;
+      font-size: $font-size-small;
+    }
+
+    &:focus {
+      color: $color-theme;
+
+      .icon {
+        background-color: $color-theme;
+        color: $color-background;
+      }
+
+      .alias {
+        color: $color-theme;
+      }
+    }
+  }
+}
+
+.slick-dots {
+  bottom: .3rem;
+
+  li {
+    &.slick-active {
+      button {
+        width: .4rem;
+        height: .4rem;
+
+        &:before {
+          font-size: $font-size-small-s;
+          color: $color-theme;
+        }
+      }
+    }
+  }
+}
