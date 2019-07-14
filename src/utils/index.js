@@ -6,17 +6,19 @@ import {renderToNodeStream} from "react-dom/server"
 import {Helmet} from 'react-helmet'
 import {renderRoutes} from "react-router-config"
 import {StaticRouter} from 'react-router-dom'
-import routes from '../routes'
+import {Provider} from 'react-redux'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export const render = (ctx, context) => {
+export const render = (ctx, store, routes, context) => {
   return new Promise(async (resolve, reject) => {
     let templateStream
     const dom = (
-      <StaticRouter location={ctx.path} context={context}>
-        {renderRoutes(routes)}
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter location={ctx.path} context={context}>
+          {renderRoutes(routes)}
+        </StaticRouter>
+      </Provider>
     )
 
     const stream = renderToNodeStream(dom)
@@ -34,6 +36,7 @@ export const render = (ctx, context) => {
         template = template.replace('<!-- meta -->', meta)
         template = template.replace('<!-- title -->', title)
         template = template.replace('<!-- app -->', html)
+        template = template.replace('<!-- state -->', `<script>window.initialState = ${JSON.stringify(store.getState())}</script>`)
         resolve(template)
       })
 

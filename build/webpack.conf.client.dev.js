@@ -27,7 +27,14 @@ const config = merge(baseConfig, {
   devServer: {
     host: '0.0.0.0',
     port: 3000,
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'https://api.julipay.com',
+        changeOrigin: true,
+        secure: false, // 接受 运行在 https 上的服务
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
