@@ -1,0 +1,8 @@
+const types = {
+  SET_ARTICLE_LIST: 'home/SET_ARTICLE_LIST',
+  SET_BANNER_LIST: 'home/SET_BANNER_LIST',
+  SET_ARTICLE_TOTAL: 'home/SET_ARTICLE_TOTAL',
+  SET_CURRENT_PAGE: 'home/SET_CURRENT_PAGE'
+}
+
+export default types

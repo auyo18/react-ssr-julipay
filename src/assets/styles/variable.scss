@@ -10,15 +10,14 @@ $color-background-b: #f4f4f4;
 $color-background-q: #eee;
 $color-background-q-o: rgba(200, 200, 200, .7);
 
-$color-text: #5d6768;
+$color-text: #262626;
 $color-text-b: #000;
 $color-text-w: white;
 $color-text-l: #999;
-$color-text-d: #ddd;
-$color-theme: #df1c4e;
-$color-theme-b: #1b96d5;
-$color-theme-s: #181818;
-$color-theme-ss: #1b1b1b;
+$color-text-d: #777;
+$color-theme: #3D7EFF;
+$color-theme-s: #F95355;
+$color-theme-ss: #F6a623;
 $color-theme-ss2: #2b2b2b;
 $color-theme-t: #232323;
 $color-theme-d: rgba(0, 0, 0, .1);
@@ -42,6 +41,12 @@ $font-size-large-xx-px: 26px;
 $font-size-large-xl: pxToRem(32, $html-size);
 $font-size-large-xl-px: 32px;
 
+// 圆角大小规范
+$border-radius-small-x:1px;
+$border-radius-small:2px;
+$border-radius-medium:4px;
+$border-radius-medium-x:6px;
+
 // 高宽规范
-$max-width: 1080px;
+$max-width: 1140px;
 $min-width: 320px;
