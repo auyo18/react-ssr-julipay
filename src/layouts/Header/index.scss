@@ -1,0 +1,19 @@
+header.header {
+  padding: .6rem;
+  box-shadow: 0 5px 40px 0 rgba(17, 58, 93, 0.1);
+
+  img {
+    float: left;
+    max-width: 2rem;
+  }
+
+  nav {
+    float: left;
+    margin-left: 1rem;
+
+    .item {
+      display: inline-block;
+      padding: 0 .2rem;
+    }
+  }
+}

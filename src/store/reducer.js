@@ -1,8 +1,12 @@
 import {combineReducers} from 'redux'
 import types from './types'
+import homeReducer from '../views/Home/store/reducer'
+import sideReducer from '../layouts/Side/store/reducer'
+import categoryReducer from '../views/Category/store/reducer'
 
 const defaultState = {
-  siteInfo: {}
+  siteInfo: {},
+  categoryInfo: []
 }
 
 const commonReducer = (state = defaultState, action) => {
@@ -11,13 +15,20 @@ const commonReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {
         siteInfo: action.siteInfo
       })
+    case types.SET_CATEGORY_INFO:
+      return Object.assign({}, state, {
+        categoryInfo: action.categoryInfo
+      })
     default:
       return state
   }
 }
 
 const reducer = combineReducers({
-  common: commonReducer
+  common: commonReducer,
+  home: homeReducer,
+  side: sideReducer,
+  category: categoryReducer
 })
 
 export default reducer

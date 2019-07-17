@@ -1,0 +1,127 @@
+@import "../../assets/styles/mixin";
+
+.home {
+  .main {
+    float: left;
+    width: 70%;
+
+    .banner {
+      margin: .8rem 0;
+      font-size: 0;
+      border-radius: $border-radius-small;
+      overflow: hidden;
+
+      .image {
+        position: relative;
+
+        img {
+          max-width: 100%;
+          transition: transform 1s;
+        }
+
+        .text {
+          position: absolute;
+          bottom: 0;
+          font-size: $font-size-medium;
+          color: $color-background;
+          padding: .6rem;
+          background-image: linear-gradient(-180deg, transparent 13%, rgba($color-background-k, .65) 97%);
+          width: 100%;
+
+          .title {
+            font-size: $font-size-large-x;
+            margin-top: .2rem;
+          }
+
+          .category {
+            span {
+              display: inline-block;
+              padding: .05rem .2rem;
+              background-color: $color-theme-s;
+              color: $color-background;
+              margin-top: .2rem;
+              border-radius: $border-radius-small;
+            }
+          }
+        }
+
+        &:hover {
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .article-wrapper {
+      margin: .8rem 0;
+
+      .switches {
+        .switch {
+          position: relative;
+          display: inline-block;
+          padding: .1rem .3rem;
+          margin-right: .1rem;
+          background-color: transparent;
+          transition: all .3s;
+          cursor: pointer;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -.1rem;
+            left: 50%;
+            margin-left: -.1rem;
+            border-top: .1rem solid transparent;
+            border-left: .1rem solid transparent;
+            border-right: .1rem solid transparent;
+            transition: border .3s;
+          }
+
+          &.cur {
+            background-color: $color-theme;
+            color: $color-background;
+            border-radius: $border-radius-small;
+
+            &::after {
+              border-top-color: $color-theme;
+            }
+          }
+        }
+      }
+
+      .loading {
+        text-align: center;
+        color: $color-theme;
+        animation: rotate 1s infinite;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      button {
+        width: 100%;
+        color: $color-text-d;
+        border-radius: $border-radius-small;
+        text-align: center;
+        padding: .2rem .3rem;
+      }
+
+      .more {
+        background-color: $color-background-q;
+        cursor: pointer;
+      }
+
+      .no-more {
+        background-color: transparent;
+        color: $color-text-l;
+      }
+    }
+  }
+}

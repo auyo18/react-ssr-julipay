@@ -8,11 +8,16 @@ import {getStore} from "../store"
 import {matchRoutes} from 'react-router-config'
 import routes from '../routes'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const app = new Koa()
 
-app.use(staticCache(path.join(__dirname, '/'), {
-  maxAge: 365 * 24 * 60 * 60
-}))
+if (!isDev) {
+  app.use(staticCache(path.join(__dirname, '/'), {
+    maxAge: 365 * 24 * 60 * 60
+  }))
+}
+
 app.use(Static(path.join(__dirname, '/')))
 
 app.use(async ctx => {
