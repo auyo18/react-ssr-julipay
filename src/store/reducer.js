@@ -3,6 +3,7 @@ import types from './types'
 import homeReducer from '../views/Home/store/reducer'
 import sideReducer from '../layouts/Side/store/reducer'
 import categoryReducer from '../views/Category/store/reducer'
+import articleReducer from '../views/Article/store/reducer'
 
 const defaultState = {
   siteInfo: {},
@@ -28,7 +29,8 @@ const reducer = combineReducers({
   common: commonReducer,
   home: homeReducer,
   side: sideReducer,
-  category: categoryReducer
+  category: categoryReducer,
+  article: articleReducer
 })
 
 export default reducer

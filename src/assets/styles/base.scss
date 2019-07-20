@@ -47,14 +47,14 @@ html {
   .container {
     max-width: 720px;
   }
-  html {
-    font-size: $html-size + px;
-  }
 }
 
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
+  }
+  html {
+    font-size: $html-size + px;
   }
 }
 
@@ -62,6 +62,14 @@ html {
   .container {
     max-width: 1140px;
   }
+}
+
+a {
+  transition: color .3s;
+}
+
+a:hover {
+  color: $color-theme;
 }
 
 .clearfix::after {
@@ -117,4 +125,43 @@ html {
 
 .mask {
   @include mask();
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity .5s cubic-bezier(.25, .1, .25, .1);
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity .5s cubic-bezier(.25, .1, .25, .1);
+}
+
+.main {
+  float: left;
+  width: 100%;
+  padding: 0;
+  @media (min-width: 992px) {
+    width: 70%;
+    padding-right: .2rem;
+  }
+}
+
+pre {
+  background-color: $color-background-q;
+  padding: .2rem .4rem;
+  margin-bottom: .4rem;
+}
+
+code {
+  white-space: normal;
+  word-break: break-all;
 }

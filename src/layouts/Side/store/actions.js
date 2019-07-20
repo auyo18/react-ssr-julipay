@@ -2,6 +2,12 @@ import types from './types'
 import {getRandomArticle} from "../../../api/article"
 import {SUCCESS_CODE} from "../../../config"
 
+export const setSideData = () => async dispatch => {
+  await dispatch(setOneRandomArticle())
+  await dispatch(setRecommendArticle())
+  await dispatch(setPolymerizationArticle())
+}
+
 export const setOneRandomArticle = (params = {limit: 1}) => async dispatch => {
   try {
     let {code, result} = await getRandomArticle(params)

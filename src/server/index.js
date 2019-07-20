@@ -22,15 +22,25 @@ app.use(Static(path.join(__dirname, '/')))
 
 app.use(async ctx => {
   const context = {}
+  const path = ctx.path
   const store = getStore()
-  const matchedRoutes = matchRoutes(routes, ctx.path) || []
+  const matchedRoutes = matchRoutes(routes, path) || []
 
   for (let i = 0, len = matchedRoutes.length; i < len; i++) {
     let matchedRoute = matchedRoutes[i]
-    matchedRoute.route && matchedRoute.route.loadData && await matchedRoute.route.loadData(store, ctx.path)
+    matchedRoute.route && matchedRoute.route.loadData && await matchedRoute.route.loadData(store, path)
   }
 
-  ctx.body = await render(ctx, store, routes, context)
+  try {
+    const html = await render(ctx, store, routes, context)
+    if (context.NotFound) {
+      ctx.status = 404
+    }
+    ctx.body = html
+  } catch (e) {
+    console.log(e)
+    ctx.body = 'error'
+  }
 })
 
 app.listen(3007)

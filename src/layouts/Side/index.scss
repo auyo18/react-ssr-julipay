@@ -3,6 +3,10 @@
 .side {
   float: right;
   width: 29%;
+  display: none;
+  @media (min-width: 992px) {
+    display: block;
+  }
 
   .author {
     margin: .8rem 0;
@@ -19,6 +23,7 @@
         background-image: url("http://image.julipay.com/3f9efcc9-a5ed-1a80-888f-da821db5315b");
         background-repeat: no-repeat;
         background-position: center;
+        background-size: cover;
       }
 
       .avatar {
@@ -153,7 +158,7 @@
     &::after {
       content: '';
       display: block;
-      padding-top: 100%;
+      padding-top: 110%;
     }
 
     .image {
@@ -165,7 +170,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      transition: transform 1s;
+      transition: transform 1s, background-image 1s;
     }
 
     &:hover {
@@ -176,13 +181,16 @@
 
     .bottom {
       position: absolute;
-      padding: .4rem;
+      padding: .2rem .4rem;
       bottom: 0;
       width: 100%;
+      background-image: linear-gradient(-180deg, transparent 0, rgba($color-background-k, .65) 100%);
+
 
       .title {
         font-size: $font-size-medium-x;
-        margin-bottom: .4rem;
+        height: 1rem;
+        margin-top: .4rem;
       }
 
       .badge {
@@ -197,9 +205,16 @@
       .switch {
         float: right;
         font-size: $font-size-large-x;
+        font-weight: bold;
         line-height: 1;
         position: relative;
+        user-select: none;
         cursor: pointer;
+
+        &.rotate {
+          transition: transform 1s;
+          transform: rotate(360deg);
+        }
 
         &::after {
           content: '';
@@ -401,6 +416,10 @@
           padding-left: 2.2rem;
           width: 100%;
           height: 100%;
+
+          .title {
+            @include no-wrap();
+          }
 
           .time {
             font-size: $font-size-small;

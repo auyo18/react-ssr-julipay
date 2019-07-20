@@ -1,9 +1,9 @@
-import React from "react"
-import fs from "fs"
-import path from "path"
-import {renderToNodeStream} from "react-dom/server"
+import React from 'react'
+import fs from 'fs'
+import path from 'path'
+import {renderToNodeStream} from 'react-dom/server'
 import {Helmet} from 'react-helmet'
-import {renderRoutes} from "react-router-config"
+import {renderRoutes} from 'react-router-config'
 import {StaticRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 
@@ -17,7 +17,6 @@ export const render = (ctx, store, routes, context) => {
         </StaticRouter>
       </Provider>
     )
-
     const stream = renderToNodeStream(dom)
     let html = '', template = ''
     templateStream = fs.createReadStream(path.join(__dirname, '../index.html'), {encoding: 'utf8'})
@@ -65,7 +64,7 @@ function pluralize(time, label) {
   return time + label + '前'
 }
 
-export const dateFormat = (times, format = 'yyyy.MM.dd') => {
+export const dateFormat = (times, format = 'yyyy-MM-dd') => {
   const time = Date.parse(times)
   const between = (Date.now() - Number(time)) / 1000
   if (between < 3600 && ((between / 60) < 1)) {

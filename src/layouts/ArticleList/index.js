@@ -12,26 +12,30 @@ class ArticleList extends PureComponent {
           {
             articleList && articleList.length > 0 && articleList.map(item => (
               <div className="item clearfix" key={item._id}>
-                <div className="mask" />
+                <div className="mask"/>
                 <div className="content">
                   <div className="image">
-                    <img src={`${item.thumbnail}?imageView2/1/w/520/h/300/q/75|imageslim`} alt={item.title} />
+                    <NavLink to={`/article/${item._id}`}>
+                      <img src={`${item.thumbnail}?imageView2/1/w/520/h/300/q/75|imageslim`} alt={item.title}/>
+                    </NavLink>
                   </div>
                   <div className="info">
                     <h2 className="title">
-                      {item.title}
+                      <NavLink to={`/article/${item._id}`}>
+                        {item.title}
+                      </NavLink>
                     </h2>
                     <p className="description">
-                      {item.description.slice(0, 50)}
+                      <NavLink to={`/article/${item._id}`}>
+                        {item.description.slice(0, 50)}
+                      </NavLink>
                     </p>
                     <p className="bottom">
                       分类：
                       <span className="category">
-                        <NavLink to={`/${item.category.slug}`}>{item.category.name}</NavLink>
+                        <NavLink to={`/category/${item.category.slug}`}>{item.category.name}</NavLink>
                       </span>
-                      <span className="time">
-                        ☀&nbsp;&nbsp;{dateFormat(item.updateTime)}
-                      </span>
+                      <span className="time">{dateFormat(item.updateTime)}</span>
                     </p>
                   </div>
                 </div>
@@ -43,7 +47,7 @@ class ArticleList extends PureComponent {
           loading ?
             <div className="loading">
               <svg className="icon" aria-hidden="true">
-                <use xlinkHref="#icon-loading" />
+                <use xlinkHref="#icon-loading"/>
               </svg>
             </div> : hasMore ?
             <button onClick={getMoreArticle} className="more">加载更多</button> :

@@ -1,19 +1,83 @@
-header.header {
-  padding: .6rem;
-  box-shadow: 0 5px 40px 0 rgba(17, 58, 93, 0.1);
+@import "../../assets/styles/mixin";
 
-  img {
+header.header {
+  padding: .2rem 0;
+  box-shadow: 0 5px 40px 0 rgba(17, 58, 93, 0.1);
+  @media (min-width: 992px) {
+    padding: .4rem 0;
+  }
+
+  .logo {
+    display: block;
     float: left;
-    max-width: 2rem;
+    padding: .2rem 0;
+    font-size: 0;
+
+    img {
+      width: 2rem;
+    }
   }
 
   nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100vh;
+    background-color: $color-background;
+    font-size: $font-size-medium-x;
     float: left;
     margin-left: 1rem;
+    transform: translateX(100%);
+    transition: 300ms ease;
+    z-index: 10;
+    @media (min-width: 992px) {
+      width: auto;
+      height: auto;
+      font-size: $font-size-medium;
+      position: relative;
+      transform: translateX(0);
+    }
+
+    &.show {
+      transform: translateX(0);
+    }
 
     .item {
-      display: inline-block;
-      padding: 0 .2rem;
+      display: block;
+      border-bottom: 1px solid $color-background-q;
+      padding: .2rem 1rem .2rem .2rem;
+
+      @media (min-width: 992px) {
+        display: inline-block;
+        border: none;
+        padding: .2rem;
+      }
+    }
+  }
+
+  .mask {
+    visibility: hidden;
+    opacity: 0;
+    @include mask($position: fixed);
+    transition: 300ms ease;
+    z-index: 9;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .nav-button {
+    display: block;
+    text-align: right;
+    padding: .2rem 0;
+    @media (min-width: 992px) {
+      display: none;
+    }
+
+    .icon {
     }
   }
 }

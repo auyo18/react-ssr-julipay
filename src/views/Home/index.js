@@ -1,22 +1,19 @@
 import React, {PureComponent, Fragment} from 'react'
 import Helmet from 'react-helmet'
-import Header from '../../layouts/Header'
-import Footer from '../../layouts/Footer'
-import ToTop from '../../layouts/ToTop'
-import Side from "../../layouts/Side"
-import ArticleList from "../../layouts/ArticleList"
-import {connect} from "react-redux"
+import {connect} from 'react-redux'
 import Slick from 'react-slick'
+import {NavLink} from 'react-router-dom'
+import Side from '../../layouts/Side'
+import ArticleList from '../../layouts/ArticleList'
 import {SITE_NAME, ARTICLE_LENGTH} from '../../config'
 import {
   setHome,
   setArticleList,
   setBannerList,
   CURRENT_PAGE
-} from "./store/actions"
-import {NavLink} from "react-router-dom"
+} from './store/actions'
 import './index.scss'
-
+import whiteComponent from '../../Hoc/whiteComponent'
 
 class Home extends PureComponent {
   constructor(props) {
@@ -29,9 +26,9 @@ class Home extends PureComponent {
   }
 
   async componentWillMount() {
-    this.goTop();
     (!this.props.bannerList.length || !this.props.articleList.length) && this.props.setHome()
     if (this.props.total <= this.props.articleList.length) {
+      console.log(88)
       this.setState(() => ({
         hasMore: false
       }))
@@ -43,23 +40,20 @@ class Home extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (this.props.location !== nextProps.location) {
-      this.goTop()
+    const nextArticleLength = nextProps.articleList.length
+    const hasMore = nextProps.total > nextArticleLength
+    if (this.props.articleList.length !== nextArticleLength) {
+      this.setState(() => ({
+        loading: false,
+        hasMore
+      }))
+    } else {
+      this.setState(() => ({
+        hasMore
+      }))
     }
-    const hasMore = nextProps.total > nextProps.articleList.length
-    this.setState(() => ({
-      loading: false,
-      hasMore
-    }))
   }
 
-  goTop = () => {
-    try {
-      document.documentElement.scrollTop = document.body.scrollTop = 0
-    }catch (e) {
-      console.log(e.message)
-    }
-  }
 
   selectCategory = index => {
     if (index === this.state.categoryIndex) return
@@ -110,7 +104,8 @@ class Home extends PureComponent {
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      draggable: false
     }
     return (
       <Fragment>
@@ -119,23 +114,27 @@ class Home extends PureComponent {
           <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`} />
           <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`} />
         </Helmet>
-        <Header />
         <div className="home container clearfix">
           <div className="main">
             <div className="banner">
               <Slick {...settings} ref="slick">
                 {
                   this.props.bannerList && this.props.bannerList.length > 0 && this.props.bannerList.map(item => (
-                    <div className="image" key={item._id}>
-                      <img src={item.thumbnail + '?imageView2/1/w/1000/h/650/q/75|imageslim'} alt={item.title} />
-                      <div className="text">
-                        <p className="category">
-                          <span>{item.category.name}</span>
-                        </p>
-                        <h2 className="title">
-                          {item.title}
-                        </h2>
-                      </div>
+                    <div className="item" key={item._id}>
+                      <NavLink to={`/article/${item._id}`}>
+                        <div
+                          className="image"
+                          style={{backgroundImage: `url(${item.thumbnail}?imageView2/1/w/1000/h/650/q/75|imageslim)`}}>
+                        </div>
+                        <div className="text">
+                          <p className="category">
+                            <span>{item.category.name}</span>
+                          </p>
+                          <h2 className="title">
+                            {item.title}
+                          </h2>
+                        </div>
+                      </NavLink>
                     </div>
                   ))
                 }
@@ -167,8 +166,6 @@ class Home extends PureComponent {
           </div>
           <Side />
         </div>
-        <Footer />
-        <ToTop />
       </Fragment>
     )
   }
@@ -198,4 +195,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(whiteComponent(Home))

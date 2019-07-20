@@ -1,29 +1,23 @@
 import types from './types'
 import {setInfo} from "../../../store/actions"
-import {
-  setOneRandomArticle,
-  setPolymerizationArticle,
-  setRecommendArticle
-} from "../../../layouts/Side/store/actions"
+import {setSideData} from "../../../layouts/Side/store/actions"
 import {ARTICLE_LENGTH, SUCCESS_CODE} from "../../../config"
 import {getArticleList} from "../../../api/article"
 
 export const setCategory = (store, path) => async dispatch => {
   await dispatch(setInfo())
   let category = 0
+  const ary = path.split('/')
+  const name = ary[ary.length - 1]
   const categoryInfo = store.getState().common.categoryInfo
   const currentCategory = categoryInfo.filter(item => (
-    item.slug === path.replace('/', '')
+    item.slug === name
   ))
   if (currentCategory.length) {
     category = currentCategory[0]._id
   }
-  await Promise.all([
-    dispatch(setArticleList({category, limit: ARTICLE_LENGTH}, [], store)),
-    dispatch(setOneRandomArticle()),
-    dispatch(setRecommendArticle()),
-    dispatch(setPolymerizationArticle())
-  ])
+  await dispatch(setArticleList({category, limit: ARTICLE_LENGTH}, [], store))
+  await dispatch(setSideData())
 }
 
 export const setArticleList = (params, curList) => async dispatch => {

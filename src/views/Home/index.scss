@@ -2,21 +2,30 @@
 
 .home {
   .main {
-    float: left;
-    width: 70%;
-
     .banner {
       margin: .8rem 0;
       font-size: 0;
       border-radius: $border-radius-small;
       overflow: hidden;
 
-      .image {
+      .item {
         position: relative;
 
-        img {
-          max-width: 100%;
-          transition: transform 1s;
+        &:after {
+          content: '';
+          display: block;
+          padding-top: 65%;
+        }
+
+        .image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
         .text {
@@ -24,16 +33,24 @@
           bottom: 0;
           font-size: $font-size-medium;
           color: $color-background;
-          padding: .6rem;
+          padding: .4rem .2rem;
           background-image: linear-gradient(-180deg, transparent 13%, rgba($color-background-k, .65) 97%);
           width: 100%;
+          @media (min-width: 992px) {
+            padding: .6rem;
+          }
 
           .title {
-            font-size: $font-size-large-x;
+            font-size: $font-size-medium-x;
             margin-top: .2rem;
+            @media (min-width: 992px) {
+              font-size: $font-size-large-x;
+            }
           }
 
           .category {
+            display: none;
+
             span {
               display: inline-block;
               padding: .05rem .2rem;
@@ -41,6 +58,10 @@
               color: $color-background;
               margin-top: .2rem;
               border-radius: $border-radius-small;
+            }
+
+            @media (min-width: 992px) {
+              display: block;
             }
           }
         }
@@ -54,10 +75,18 @@
     }
 
     .switches {
+      overflow-x: scroll;
+      white-space: nowrap;
+      padding: .2rem 0;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
       .switch {
         position: relative;
         display: inline-block;
-        padding: .1rem .3rem;
+        padding: .1rem .2rem;
         margin-right: .1rem;
         background-color: transparent;
         transition: all .3s;

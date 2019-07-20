@@ -1,0 +1,18 @@
+@import "../../assets/styles/mixin";
+
+.not-found {
+  .main {
+    min-height: 800px;
+    padding-top: 300px;
+    text-align: center;
+
+    .status {
+      font-size: $font-size-large-xl * 2;
+      color: $color-text-d;
+    }
+
+    .info {
+      color: $color-text-l;
+    }
+  }
+}

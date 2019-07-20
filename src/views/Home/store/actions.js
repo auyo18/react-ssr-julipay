@@ -2,24 +2,14 @@ import types from './types'
 import {getArticleList} from "../../../api/article"
 import {SUCCESS_CODE, BANNER_LENGTH, ARTICLE_LENGTH} from "../../../config"
 import {setInfo} from "../../../store/actions"
-import {
-  setOneRandomArticle,
-  setRecommendArticle,
-  setPolymerizationArticle
-} from "../../../layouts/Side/store/actions"
+import {setSideData} from "../../../layouts/Side/store/actions"
 
-export const setHome = () => (
-  async dispatch => {
-    await Promise.all([
-      dispatch(setInfo()),
-      dispatch(setBannerList()),
-      dispatch(setArticleList()),
-      dispatch(setOneRandomArticle()),
-      dispatch(setRecommendArticle()),
-      dispatch(setPolymerizationArticle())
-    ])
-  }
-)
+export const setHome = () => async dispatch => {
+  await dispatch(setInfo())
+  await dispatch(setBannerList())
+  await dispatch(setArticleList())
+  await dispatch(setSideData())
+}
 
 export const setBannerList = (params = {
   rule: 'importance',

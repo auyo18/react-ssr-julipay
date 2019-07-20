@@ -12,3 +12,11 @@ export const getRandomArticle = params => request({
   method: 'get',
   params
 })
+
+export const getArticle = params => {
+  return request({
+    url: BASE_URL + '/api/article/getArticle',
+    method: 'get',
+    params
+  })
+}

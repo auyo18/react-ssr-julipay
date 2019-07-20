@@ -1,30 +1,25 @@
 import React, {PureComponent} from 'react'
-import Header from "../../layouts/Header"
-import Footer from '../../layouts/Footer'
-import {SITE_NAME} from "../../config"
-import {Helmet} from "react-helmet"
+import {Helmet} from 'react-helmet'
+import {connect} from 'react-redux'
+import {SITE_NAME} from '../../config'
 import {setNotFound} from "./store/actions"
-import {connect} from "react-redux"
-import ToTop from "../../layouts/ToTop"
+import './index.scss'
 
 class NotFound extends PureComponent {
-  componentWillMount() {
-    // !this.props.siteInfo.title && this.props.setNotFound()
-  }
-
   render() {
+    this.props.staticContext && (this.props.staticContext.NotFound = true)
     return (
-      <div>
+      <div className="not-found">
         <Helmet>
           <meta charSet="utf-8"/>
           <title>{this.props.siteInfo && this.props.siteInfo.subtitle || '首页'} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
           <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`}/>
           <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`}/>
         </Helmet>
-        <Header/>
-        <p>404, sorry, page not found!</p>
-        <Footer/>
-        <ToTop/>
+        <div className="main container">
+          <div className="status">404</div>
+          <p className="info">抱歉，您要查看的数据不存在或已被删除。</p>
+        </div>
       </div>
     )
   }
@@ -36,10 +31,4 @@ const mapStateToProps = state => ({
   siteInfo: state.common.siteInfo
 })
 
-const mapDispatchToProps = dispatch => ({
-  setNotFound() {
-    dispatch(setNotFound())
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotFound)
+export default connect(mapStateToProps, null)(NotFound)

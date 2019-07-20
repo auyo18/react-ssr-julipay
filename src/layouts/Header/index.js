@@ -5,28 +5,54 @@ import {setInfo} from "../../store/actions"
 import './index.scss'
 
 class Header extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showNav: false
+    }
+  }
+
   componentWillMount() {
     (!this.props.siteInfo.title || !this.props.categoryInfo.length) && this.props.setInfo()
+  }
+
+  setNav = (status) => {
+    this.setState(() => ({
+      showNav: status
+    }))
   }
 
   render() {
     return (
       <header className="header">
         <div className="container clearfix">
-          <NavLink to="/">
-            <img
-              src={this.props.siteInfo.logo}
-              alt={this.props.siteInfo.title}
-              className="logo" />
-          </NavLink>
-          <nav>
-            <NavLink to="/">首页</NavLink>
+          <h1 className="logo">
+            <NavLink to="/">
+              <img
+                src={this.props.siteInfo.logo}
+                alt={this.props.siteInfo.title}
+              />
+              <span>{this.props.siteInfo.title}</span>
+            </NavLink>
+          </h1>
+          <nav className={`${this.state.showNav ? ' show' : ''}`}>
+            <NavLink to="/" className="item">首页</NavLink>
             {
               this.props.categoryInfo && this.props.categoryInfo.map(item => (
-                <NavLink to={item.slug} key={item._id} className="item">{item.name}</NavLink>
+                <NavLink to={`/category/${item.slug}`} key={item._id} className="item">{item.name}</NavLink>
               ))
             }
           </nav>
+          <div className={`mask${this.state.showNav ? ' show' : ''}`} onClick={() => {
+            this.setNav(false)
+          }} />
+          <div className="nav-button">
+            <svg className="icon" aria-hidden="true" onClick={() => {
+              this.setNav(true)
+            }}>
+              <use xlinkHref="#icon-caidan" />
+            </svg>
+          </div>
         </div>
       </header>
     )
@@ -44,4 +70,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps, null,
+  {
+    forwardRef: true
+  })(Header)

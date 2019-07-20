@@ -3,5 +3,12 @@
 footer.footer {
   background-color: $color-text;
   color: $color-background;
-  padding: .4rem 0;
+  padding: .8rem 0;
+
+  .copyright, .rights {
+    font-size: $font-size-small;
+    text-align: center;
+    color: $color-text-l;
+    margin-bottom: .2rem;
+  }
 }

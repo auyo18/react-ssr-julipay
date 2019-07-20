@@ -8,17 +8,20 @@ import {getClientStore} from "../store"
 import 'slick-carousel/slick/slick.scss'
 import 'slick-carousel/slick/slick-theme.scss'
 import '../assets/styles/index.scss'
+
 require('../../static/js/font')
 
 const store = getClientStore()
 
-const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      {renderRoutes(routes)}
-    </BrowserRouter>
-  </Provider>
-)
+const App = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        {renderRoutes(routes)}
+      </BrowserRouter>
+    </Provider>
+  )
+}
 
 ReactDom.hydrate(
   <App />,

@@ -2,13 +2,12 @@ import React, {PureComponent, Fragment} from 'react'
 import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
 import {NavLink} from "react-router-dom"
-import Header from '../../layouts/Header'
-import Footer from '../../layouts/Footer'
-import ToTop from '../../layouts/ToTop'
+import Side from '../../layouts/Side'
 import ArticleList from '../../layouts/ArticleList'
+import NotFound from '../../views/NotFound'
 import {SITE_NAME, ARTICLE_LENGTH} from '../../config'
 import {setCategory, setArticleList, CURRENT_PAGE} from './store/actions'
-import Side from '../../layouts/Side'
+import whiteComponent from '../../Hoc/whiteComponent'
 import './index.scss'
 
 class Category extends PureComponent {
@@ -18,40 +17,42 @@ class Category extends PureComponent {
       category: null,
       loading: false,
       currentPage: 1,
-      hasMore: true
+      hasMore: true,
+      notFound: false
     }
   }
 
   componentWillMount() {
-    this.goTop()
     this.getCategory(this.props.match.params.category)
-    let hasMore = this.props.total > this.props.articleList.length
-    this.setState(() => ({
-      hasMore
-    }))
+    this.setHasMore()
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (this.props.location !== nextProps.location) {
-      this.goTop()
-      this.getCategory(nextProps.match.params.category)
+    if (this.props.location.pathname !== nextProps.location.pathname) {
       this.initState()
+      this.getCategory(nextProps.match.params.category)
       this.props.setCurrentPage(1)
     }
 
-    const hasMore = nextProps.total > nextProps.articleList.length
-    this.setState(() => ({
-      loading: false,
-      hasMore
-    }))
+    const nextArticleLength = nextProps.articleList.length
+    const hasMore = nextProps.total > nextArticleLength
+    if (this.props.articleList.length !== nextArticleLength) {
+      this.setState(() => ({
+        loading: false,
+        hasMore
+      }))
+    } else {
+      this.setState(() => ({
+        hasMore
+      }))
+    }
   }
 
-  goTop = () => {
-    try {
-      document.documentElement.scrollTop = document.body.scrollTop = 0
-    }catch (e) {
-      console.log(e.message)
-    }
+  setHasMore = () => {
+    const hasMore = this.props.total > this.props.articleList.length
+    this.setState(() => ({
+      hasMore
+    }))
   }
 
   initState = () => {
@@ -67,13 +68,19 @@ class Category extends PureComponent {
     ))
     if (category.length) {
       this.setState(() => ({
-        category: category[0]
+        category: category[0],
+        notFound: false
       }), () => {
+        if (this.props.articleList.length > 0 && this.props.articleList[0].category.slug === categoryName) return
         this.props.setArticleList({
           category: this.state.category._id,
           limit: ARTICLE_LENGTH
         })
       })
+    } else {
+      this.setState(() => ({
+        notFound: true
+      }))
     }
   }
 
@@ -92,31 +99,30 @@ class Category extends PureComponent {
 
   render() {
     return (
-      <Fragment>
-        <Helmet>
-          <title>{this.state.category && this.state.category.name || this.props.siteInfo && this.props.siteInfo.subtitle} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
-          <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`} />
-          <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`} />
-        </Helmet>
-        <Header />
-        <div className="category container clearfix">
-          <div className="main">
-            <div className="breadcrumb">
-              <span><NavLink to="/">首页</NavLink></span>
-              <span className="arrow">›</span>
-              <span className="current">{this.state.category.name}</span>
+      this.state.notFound ?
+        <NotFound staticContext={this.props.staticContext} /> :
+        <Fragment>
+          <Helmet>
+            <title>{this.state.category && this.state.category.name || this.props.siteInfo && this.props.siteInfo.subtitle} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
+            <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`} />
+            <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`} />
+          </Helmet>
+          <div className="category container clearfix">
+            <div className="main">
+              <div className="breadcrumb">
+                <span><NavLink to="/">首页</NavLink></span>
+                <span className="arrow">›</span>
+                <span className="current">{this.state.category && this.state.category.name}</span>
+              </div>
+              <ArticleList
+                articleList={this.props.articleList}
+                loading={this.state.loading}
+                hasMore={this.state.hasMore}
+                getMoreArticle={this.getMoreArticle} />
             </div>
-            <ArticleList
-              articleList={this.props.articleList}
-              loading={this.state.loading}
-              hasMore={this.state.hasMore}
-              getMoreArticle={this.getMoreArticle} />
+            <Side />
           </div>
-          <Side />
-        </div>
-        <Footer />
-        <ToTop />
-      </Fragment>
+        </Fragment>
     )
   }
 }
@@ -140,4 +146,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category)
+export default connect(mapStateToProps, mapDispatchToProps)(whiteComponent(Category))

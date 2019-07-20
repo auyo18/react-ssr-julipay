@@ -7,7 +7,7 @@
     "build": "rimraf dist && npm-run-all --parallel build:**",
     "build:server": "webpack --config build/webpack.conf.server.js",
     "build:client": "webpack --config build/webpack.conf.client.prod.js",
-    "build:start": "nodemon dist/static/server.js"
+    "start": "nodemon dist/static/server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

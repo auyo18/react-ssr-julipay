@@ -4,12 +4,13 @@
   margin: .8rem .2rem .8rem 0;
 
   .article-list {
-
     .item {
       position: relative;
-      padding-right: .4rem;
       margin-bottom: .8rem;
       background-color: $color-background;
+      @media (min-width: 992px) {
+        padding-right: .4rem;
+      }
 
       .mask {
         @include mask($bgCol: transparent);
@@ -28,10 +29,13 @@
         .image {
           position: relative;
           font-size: 0;
-          width: 5rem;
+          width: 40%;
           border-radius: $border-radius-small;
           overflow: hidden;
           z-index: 1;
+          @media (min-width: 992px) {
+            width: 4.5rem;
+          }
 
           img {
             max-width: 100%;
@@ -49,30 +53,50 @@
           position: absolute;
           top: 0;
           left: 0;
-          padding-left: 5.5rem;
+          padding-left: 43%;
           width: 100%;
           height: 100%;
+          @media (min-width: 992px) {
+            padding-left: 5rem;
+          }
 
           .title {
-            font-size: $font-size-large;
-            margin-top: .16rem;
+            font-size: $font-size-medium;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            @media (min-width: 992px) {
+              font-size: $font-size-large;
+              margin-top: .16rem;
+            }
           }
 
           .description {
+            display: none;
             color: $color-text-d;
             margin-top: .16rem;
+            @media (min-width: 992px) {
+              display: block;
+            }
           }
 
           .bottom {
             font-size: $font-size-small;
             color: $color-text-l;
             position: absolute;
-            left: 5.5rem;;
+            left: 43%;
             right: 0;
-            bottom: .16rem;
+            bottom: 0;
+            @media (min-width: 992px) {
+              left: 5rem;
+              bottom: .16rem;
+            }
 
             .category {
-              color: $color-theme;
+              @media (min-width: 992px) {
+                color: $color-theme;
+              }
             }
 
             .time {
@@ -88,8 +112,10 @@
       }
 
       &:hover {
-        .mask {
-          box-shadow: 0 0 20px 2px rgba($color-text-l, .3);
+        @media (min-width: 992px) {
+          .mask {
+            box-shadow: 0 0 20px 2px rgba($color-text-l, .3);
+          }
         }
       }
     }

@@ -1,6 +1,6 @@
 import types from './types'
-import {getSiteInfo} from "../api/siteInfo"
-import {SUCCESS_CODE} from "../config"
+import {getSiteInfo} from '../api/siteInfo'
+import {SUCCESS_CODE} from '../config'
 
 export const setInfo = () => (
   async dispatch => {
@@ -10,7 +10,7 @@ export const setInfo = () => (
         dispatch(SITE_INFO(result.siteInfo))
         dispatch(CATEGORY_INFO(result.categoryInfo))
       }
-    }catch (e) {
+    } catch (e) {
       console.log(e.message)
     }
   }

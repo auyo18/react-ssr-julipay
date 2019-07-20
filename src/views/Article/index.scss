@@ -1,0 +1,110 @@
+@import "../../assets/styles/mixin";
+
+.article {
+  .main {
+    .breadcrumb {
+      margin: .4rem 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      @media (min-width: 992px) {
+        margin: .8rem 0;
+      }
+
+      span {
+        font-size: $font-size-small;
+        display: inline-block;
+        margin-right: .2rem;
+
+        &.arrow, &.current {
+          color: $color-text-l;
+        }
+      }
+    }
+
+    .category {
+      margin: .2rem 0;
+
+      span {
+        font-size: $font-size-small;
+        line-height: 1;
+        display: inline-block;
+        background-color: $color-theme-s;
+        color: $color-background;
+        padding: .1rem .15rem;
+        transition: background-color .3s;
+        border-radius: $border-radius-small;
+
+        &:hover {
+          background-color: darken($color-theme-s, 10%);
+        }
+      }
+    }
+
+    & > .title {
+      font-size: $font-size-large-x;
+      margin: .4rem 0;
+      @media (min-width: 992px) {
+        font-size: $font-size-large-xx;
+      }
+    }
+
+    .meta {
+      margin: .2rem 0;
+      padding-bottom: .2rem;
+      color: $color-text-l;
+      border-bottom: 1px solid $color-background-q;
+
+      span {
+        margin-right: .2rem;
+      }
+    }
+
+    .content {
+      margin: .8rem 0;
+      line-height: 2;
+      border-bottom: 1px solid $color-background-q;
+
+      p {
+        margin-bottom: .4rem;
+        font-size: $font-size-medium-x;
+      }
+    }
+
+    .recommend {
+      margin: .8rem 0;
+
+      .title {
+        font-size: $font-size-large;
+        margin-bottom: .4rem;
+      }
+
+      .article {
+        display: block;
+        font-size: $font-size-medium;
+        padding: .2rem .4rem;
+        position: relative;
+        transition: padding .3s;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: .2rem;
+          height: 1px;
+          background-color: $color-theme;
+          transition: width .3s;
+        }
+
+        &:hover {
+          padding-left: .6rem;
+
+          &::before {
+            width: .4rem;
+          }
+        }
+      }
+    }
+  }
+}
