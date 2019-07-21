@@ -28,10 +28,7 @@ class Header extends PureComponent {
         <div className="container clearfix">
           <h1 className="logo">
             <NavLink to="/">
-              <img
-                src={this.props.siteInfo.logo}
-                alt={this.props.siteInfo.title}
-              />
+              <div className="image" style={{backgroundImage:`url(${this.props.siteInfo.logo})`}}/>
               <span>{this.props.siteInfo.title}</span>
             </NavLink>
           </h1>

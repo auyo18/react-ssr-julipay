@@ -12,13 +12,13 @@ class ArticleList extends PureComponent {
           {
             articleList && articleList.length > 0 && articleList.map(item => (
               <div className="item clearfix" key={item._id}>
-                <div className="mask"/>
+                <div className="mask" />
                 <div className="content">
-                  <div className="image">
-                    <NavLink to={`/article/${item._id}`}>
-                      <img src={`${item.thumbnail}?imageView2/1/w/520/h/300/q/75|imageslim`} alt={item.title}/>
-                    </NavLink>
-                  </div>
+                  <NavLink to={`/article/${item._id}`}>
+                    <div
+                      className="image"
+                      style={{backgroundImage: `url(${item.thumbnail}?imageView2/1/w/520/h/300/q/75|imageslim)`}} />
+                  </NavLink>
                   <div className="info">
                     <h2 className="title">
                       <NavLink to={`/article/${item._id}`}>
@@ -47,7 +47,7 @@ class ArticleList extends PureComponent {
           loading ?
             <div className="loading">
               <svg className="icon" aria-hidden="true">
-                <use xlinkHref="#icon-loading"/>
+                <use xlinkHref="#icon-loading" />
               </svg>
             </div> : hasMore ?
             <button onClick={getMoreArticle} className="more">加载更多</button> :

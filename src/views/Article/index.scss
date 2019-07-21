@@ -60,7 +60,7 @@
       }
     }
 
-    .content {
+    .content-wrapper {
       margin: .8rem 0;
       line-height: 2;
       border-bottom: 1px solid $color-background-q;
@@ -68,6 +68,23 @@
       p {
         margin-bottom: .4rem;
         font-size: $font-size-medium-x;
+      }
+
+      .tag {
+        margin: .8rem 0 .4rem;
+
+        .icon {
+          color: $color-theme;
+          font-size: $font-size-small;
+          vertical-align: middle;
+        }
+
+        span {
+          display: inline-block;
+          font-size: $font-size-small + .02;
+          margin-left: .2rem;
+          color: $color-text-d;
+        }
       }
     }
 

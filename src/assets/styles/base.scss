@@ -159,9 +159,11 @@ pre {
   background-color: $color-background-q;
   padding: .2rem .4rem;
   margin-bottom: .4rem;
+  border-radius: $border-radius-small;
 }
 
 code {
+  display: block;
   white-space: normal;
   word-break: break-all;
 }

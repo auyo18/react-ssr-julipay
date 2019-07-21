@@ -74,7 +74,18 @@ class Article extends PureComponent {
                 <span className="time">{dateFormat(articleContent.updateTime)}</span>
                 <span className="author">{articleContent.author}</span>
               </p>
-              <div className="content" dangerouslySetInnerHTML={{__html: articleContent.content}}>
+              <div className="content-wrapper">
+                <div className="content" dangerouslySetInnerHTML={{__html: articleContent.content}} />
+                <div className="tag">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-biaoqian" />
+                  </svg>
+                  {
+                    articleContent.keyword && articleContent.keyword.split(',').map(tag => (
+                      <span key={tag}>{tag}</span>
+                    ))
+                  }
+                </div>
               </div>
               <div className="recommend">
                 <h2 className="title">推荐文章</h2>

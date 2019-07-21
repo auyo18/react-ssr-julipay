@@ -149,13 +149,11 @@ class Side extends PureComponent {
                 this.props.recommendList && this.props.recommendList.length > 0 && this.props.recommendList.map((article, index) => (
                   <div className={`article ${index < 2 ? 'background' : 'column'}`} key={article._id}>
                     <div className="index one">{index + 1}</div>
-                    <div className="image">
-                      <NavLink to={`/article/${article._id}`}>
-                        <img
-                          src={`${article.thumbnail}?imageView2/1/w/500/h/375/q/75|imageslim`}
-                          alt={article.title} />
-                      </NavLink>
-                    </div>
+                    <NavLink to={`/article/${article._id}`}>
+                      <div
+                        className="image"
+                        style={{backgroundImage: `url(${article.thumbnail}?imageView2/1/w/500/h/375/q/75|imageslim)`}} />
+                    </NavLink>
                     {
                       index < 2 ?
                         <NavLink to={`/article/${article._id}`}>
@@ -164,7 +162,6 @@ class Side extends PureComponent {
                               <p className="title">
                                 {article.title}
                               </p>
-                              <p className="time">{dateFormat(article.updateTime)}</p>
                             </div>
                           </div>
                         </NavLink> :
