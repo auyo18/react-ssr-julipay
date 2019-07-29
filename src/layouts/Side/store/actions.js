@@ -10,9 +10,9 @@ export const setSideData = () => async dispatch => {
 
 export const setOneRandomArticle = (params = {limit: 1}) => async dispatch => {
   try {
-    let {code, result} = await getRandomArticle(params)
+    let {code, data} = await getRandomArticle(params)
     if (code === SUCCESS_CODE) {
-      dispatch(ONE_RANDOM_ARTICLE(result))
+      dispatch(ONE_RANDOM_ARTICLE(data))
     }
   } catch (e) {
     console.log(e)
@@ -21,9 +21,9 @@ export const setOneRandomArticle = (params = {limit: 1}) => async dispatch => {
 
 export const setRecommendArticle = (params = {limit: 10}) => async dispatch => {
   try {
-    let {code, result} = await getRandomArticle(params)
+    let {code, data} = await getRandomArticle(params)
     if (code === SUCCESS_CODE) {
-      dispatch(RECOMMEND_ARTICLE(result))
+      dispatch(RECOMMEND_ARTICLE(data))
     }
   } catch (e) {
     console.log(e)
@@ -32,9 +32,9 @@ export const setRecommendArticle = (params = {limit: 10}) => async dispatch => {
 
 export const setPolymerizationArticle = (params = {limit: 5}) => async dispatch => {
   try {
-    let {code, result} = await getRandomArticle(params)
+    let {code, data} = await getRandomArticle(params)
     if (code === SUCCESS_CODE) {
-      dispatch(POLYMERIZATION_ARTICLE(result))
+      dispatch(POLYMERIZATION_ARTICLE(data))
     }
   } catch (e) {
     console.log(e)

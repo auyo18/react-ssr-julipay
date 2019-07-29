@@ -1,21 +1,20 @@
 import request from '../utils/request'
-import {BASE_URL} from "../config"
 
 export const getArticleList = params => request({
-  url: BASE_URL + '/api/article/articleList',
+  url: '/article/getArticleList',
   method: 'get',
   params
 })
 
 export const getRandomArticle = params => request({
-  url: BASE_URL + '/api/article/getRandomArticle',
+  url: '/article/getRandomArticle',
   method: 'get',
   params
 })
 
 export const getArticle = params => {
   return request({
-    url: BASE_URL + '/api/article/getArticle',
+    url: '/article/getDetail',
     method: 'get',
     params
   })

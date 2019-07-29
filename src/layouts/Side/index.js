@@ -192,9 +192,9 @@ Side.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  oneRandomArticle: state.side.oneRandomArticle,
-  recommendList: state.side.recommendList,
-  polymerizationList: state.side.polymerizationList
+  oneRandomArticle: state.side.oneRandomArticle || [],
+  recommendList: state.side.recommendList || [],
+  polymerizationList: state.side.polymerizationList || []
 })
 
 const mapDispatchToProps = dispatch => ({

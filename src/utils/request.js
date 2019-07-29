@@ -1,19 +1,15 @@
 import axios from 'axios'
+import {BASE_URL} from "../config"
 
 const service = axios.create({
-  // baseURL: '/api',
-  withCredentials: true,
-  timeout: 3000,
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest'
-  }
+  baseURL: BASE_URL,
+  timeout: 5000
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => config,
   error => {
-    console.log(error)
     return Promise.reject(error)
   }
 )

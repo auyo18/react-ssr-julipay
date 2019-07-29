@@ -28,8 +28,8 @@ class Article extends PureComponent {
     }
   }
 
-  getArticleContent = async (id) => {
-    this.props.articleContent && (!this.props.articleContent._id || (this.props.articleContent._id !== id)) && await this.props.setArticleContent({id})
+  getArticleContent = async (_id) => {
+    this.props.articleContent && (!this.props.articleContent._id || (this.props.articleContent._id !== _id)) && await this.props.setArticleContent({_id})
   }
 
   render() {
@@ -110,10 +110,10 @@ class Article extends PureComponent {
 Article.loadData = (store, path) => store.dispatch(setArticle(path))
 
 const mapStateToProps = state => ({
-  siteInfo: state.common.siteInfo,
+  siteInfo: state.common.siteInfo || {},
   articleContent: state.article.articleContent,
   articleNotFound: state.article.articleNotFound,
-  recommendList: state.side.recommendList
+  recommendList: state.side.recommendList || []
 })
 const mapDispatchToProps = dispatch => ({
   async setArticleContent(params) {

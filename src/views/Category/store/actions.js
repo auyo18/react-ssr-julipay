@@ -9,8 +9,8 @@ export const setCategory = (store, path) => async dispatch => {
   let category = 0
   const ary = path.split('/')
   const name = ary[ary.length - 1]
-  const categoryInfo = store.getState().common.categoryInfo
-  const currentCategory = categoryInfo.filter(item => (
+  const categoryList = store.getState().common.categoryList
+  const currentCategory = categoryList.filter(item => (
     item.slug === name
   ))
   if (currentCategory.length) {
@@ -22,7 +22,7 @@ export const setCategory = (store, path) => async dispatch => {
 
 export const setArticleList = (params, curList) => async dispatch => {
   try {
-    let {code, result: list, total} = await getArticleList(params)
+    let {code, data: list, total} = await getArticleList(params)
     if (params.page > 1) {
       // 加载更多
       list = [...curList, ...list]

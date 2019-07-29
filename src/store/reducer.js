@@ -7,7 +7,7 @@ import articleReducer from '../views/Article/store/reducer'
 
 const defaultState = {
   siteInfo: {},
-  categoryInfo: []
+  categoryList: []
 }
 
 const commonReducer = (state = defaultState, action) => {
@@ -16,9 +16,9 @@ const commonReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {
         siteInfo: action.siteInfo
       })
-    case types.SET_CATEGORY_INFO:
+    case types.SET_CATEGORY_LIST:
       return Object.assign({}, state, {
-        categoryInfo: action.categoryInfo
+        categoryList: action.categoryList
       })
     default:
       return state

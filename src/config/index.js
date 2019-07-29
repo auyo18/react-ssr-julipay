@@ -1,4 +1,6 @@
-export const BASE_URL = 'https://api.julipay.com'
+const isDev = process.env.NODE_ENV === 'development'
+
+export const BASE_URL = isDev ? 'http://127.0.0.1:3000/api/julipay' : 'https://api.julipay.com/api/julipay'
 
 export const SITE_NAME = '聚力创意'
 

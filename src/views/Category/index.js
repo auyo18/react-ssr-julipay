@@ -63,7 +63,8 @@ class Category extends PureComponent {
   }
 
   getCategory = categoryName => {
-    const category = this.props.categoryInfo.filter(item => (
+
+    const category = this.props.categoryList.filter(item => (
       item.slug === categoryName
     ))
     if (category.length) {
@@ -73,7 +74,7 @@ class Category extends PureComponent {
       }), () => {
         if (this.props.articleList.length > 0 && this.props.articleList[0].category.slug === categoryName) return
         this.props.setArticleList({
-          category: this.state.category._id,
+          category_id: this.state.category._id,
           limit: ARTICLE_LENGTH
         })
       })
@@ -92,7 +93,7 @@ class Category extends PureComponent {
     this.props.setArticleList({
       page,
       limit: ARTICLE_LENGTH,
-      category: this.state.category._id
+      category_id: this.state.category._id
     }, this.props.articleList)
     this.props.setCurrentPage(this.props.currentPage + 1)
   }
@@ -130,9 +131,9 @@ class Category extends PureComponent {
 Category.loadData = (store, path) => store.dispatch(setCategory(store, path))
 
 const mapStateToProps = state => ({
-  siteInfo: state.common.siteInfo,
-  categoryInfo: state.common.categoryInfo,
-  articleList: state.category.articleList,
+  siteInfo: state.common.siteInfo || {},
+  categoryList: state.common.categoryList|| [],
+  articleList: state.category.articleList|| [],
   total: state.category.total,
   currentPage: state.category.currentPage
 })

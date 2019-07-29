@@ -17,7 +17,7 @@ class ArticleList extends PureComponent {
                   <NavLink to={`/article/${item._id}`}>
                     <div
                       className="image"
-                      style={{backgroundImage: `url(${item.thumbnail}?imageView2/1/w/520/h/300/q/75|imageslim)`}} />
+                      style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail + '?imageView2/1/w/520/h/300/q/75|imageslim' : ''}) `}} />
                   </NavLink>
                   <div className="info">
                     <h2 className="title">
@@ -27,13 +27,14 @@ class ArticleList extends PureComponent {
                     </h2>
                     <p className="description">
                       <NavLink to={`/article/${item._id}`}>
-                        {item.description.slice(0, 50)}
+                        {item.description && item.description.slice(0, 50)}
                       </NavLink>
                     </p>
                     <p className="bottom">
                       分类：
                       <span className="category">
-                        <NavLink to={`/category/${item.category.slug}`}>{item.category.name}</NavLink>
+                        <NavLink
+                          to={`/category/${item.category && item.category.slug}`}>{item.category && item.category.name}</NavLink>
                       </span>
                       <span className="time">{dateFormat(item.updateTime)}</span>
                     </p>

@@ -13,7 +13,7 @@ class Header extends PureComponent {
   }
 
   componentWillMount() {
-    (!this.props.siteInfo.title || !this.props.categoryInfo.length) && this.props.setInfo()
+    (!this.props.siteInfo.title || !this.props.categoryList.length) && this.props.setInfo()
   }
 
   setNav = (status) => {
@@ -28,14 +28,14 @@ class Header extends PureComponent {
         <div className="container clearfix">
           <h1 className="logo">
             <NavLink to="/">
-              <div className="image" style={{backgroundImage:`url(${this.props.siteInfo.logo})`}}/>
+              <div className="image" style={{backgroundImage: `url(${this.props.siteInfo.logo})`}} />
               <span>{this.props.siteInfo.title}</span>
             </NavLink>
           </h1>
           <nav className={`${this.state.showNav ? ' show' : ''}`}>
             <NavLink to="/" className="item">首页</NavLink>
             {
-              this.props.categoryInfo && this.props.categoryInfo.map(item => (
+              this.props.categoryList && this.props.categoryList.map(item => (
                 <NavLink to={`/category/${item.slug}`} key={item._id} className="item">{item.name}</NavLink>
               ))
             }
@@ -57,8 +57,8 @@ class Header extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  siteInfo: state.common.siteInfo,
-  categoryInfo: state.common.categoryInfo
+  siteInfo: state.common.siteInfo || {},
+  categoryList: state.common.categoryList || []
 })
 
 const mapDispatchToProps = dispatch => ({

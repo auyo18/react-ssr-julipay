@@ -12,14 +12,14 @@ export const setHome = () => async dispatch => {
 }
 
 export const setBannerList = (params = {
-  rule: 'importance',
+  sortName: 'importance',
   limit: BANNER_LENGTH,
-  sort: 1
+  sort: -1
 }) => async dispatch => {
   try {
-    const {code, result} = await getArticleList(params)
+    const {code, data} = await getArticleList(params)
     if (code === SUCCESS_CODE) {
-      dispatch(BANNER_LIST(result))
+      dispatch(BANNER_LIST(data))
     }
   } catch (e) {
     console.log(e.message)
@@ -28,7 +28,7 @@ export const setBannerList = (params = {
 
 export const setArticleList = (params = {limit: ARTICLE_LENGTH}, curList) => async dispatch => {
   try {
-    let {code, result: list, total} = await getArticleList(params)
+    let {code, data: list, total} = await getArticleList(params)
     if (params.page > 1) {
       // 加载更多
       list = [...curList, ...list]

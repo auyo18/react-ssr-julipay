@@ -6,18 +6,18 @@ import {setSideData} from "../../../layouts/Side/store/actions"
 
 export const setArticle = (path) => async dispatch => {
   const ary = path.split('/')
-  const id = ary[ary.length - 1]
+  const _id = ary[ary.length - 1]
   await dispatch(setInfo())
-  await dispatch(setArticleContent({id}))
+  await dispatch(setArticleContent({_id}))
   await dispatch(setSideData())
 
 }
 
 export const setArticleContent = params => async dispatch => {
   try {
-    const {code, result} = await getArticle(params)
+    const {code, data} = await getArticle(params)
     if (code === SUCCESS_CODE) {
-      dispatch(ARTICLE_CONTENT(result))
+      dispatch(ARTICLE_CONTENT(data))
       dispatch(ARTICLE_NOT_FOUND(false))
     } else {
       dispatch(ARTICLE_NOT_FOUND(true))

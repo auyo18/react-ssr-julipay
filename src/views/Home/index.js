@@ -28,7 +28,6 @@ class Home extends PureComponent {
   async componentWillMount() {
     (!this.props.bannerList.length || !this.props.articleList.length) && this.props.setHome()
     if (this.props.total <= this.props.articleList.length) {
-      console.log(88)
       this.setState(() => ({
         hasMore: false
       }))
@@ -60,7 +59,7 @@ class Home extends PureComponent {
     if (index > 0) {
       this.props.setArticleList({
         limit: ARTICLE_LENGTH,
-        category: this.props.categoryInfo[index - 1]._id
+        category_id: this.props.categoryList[index - 1]._id
       })
     } else {
       this.props.setArticleList()
@@ -82,7 +81,7 @@ class Home extends PureComponent {
       params = {
         page,
         limit: ARTICLE_LENGTH,
-        category: this.props.categoryInfo[index - 1]._id
+        category: this.props.categoryList[index - 1]._id
       }
     } else {
       params = {
@@ -110,7 +109,7 @@ class Home extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>{this.props.siteInfo && this.props.siteInfo.subtitle || this.props.siteInfo && this.props.siteInfo.subtitle} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
+          <title>{this.props.siteInfo && this.props.siteInfo.subtitle || this.props.siteInfo && this.props.siteInfo.subtitle || '聚力创意'} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
           <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`} />
           <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`} />
         </Helmet>
@@ -128,7 +127,7 @@ class Home extends PureComponent {
                         </div>
                         <div className="text">
                           <p className="category">
-                            <span>{item.category.name}</span>
+                            <span>{item.category && item.category.name}</span>
                           </p>
                           <h2 className="title">
                             {item.title}
@@ -148,8 +147,9 @@ class Home extends PureComponent {
                 className={`switch${this.state.categoryIndex === 0 ? ' cur' : ''}`}
               >最新</span>
               {
-                this.props.categoryInfo && this.props.categoryInfo.length > 0 && this.props.categoryInfo.map((item, index) => (
+                this.props.categoryList && this.props.categoryList.length > 0 && this.props.categoryList.map((item, index) => (
                   <span
+                    key={item._id}
                     key={item._id}
                     className={`switch${index + 1 === this.state.categoryIndex ? ' cur' : ''}`}
                     onClick={() => {
@@ -174,10 +174,10 @@ class Home extends PureComponent {
 Home.loadData = store => store.dispatch(setHome())
 
 const mapStateToProps = state => ({
-  siteInfo: state.common.siteInfo,
-  categoryInfo: state.common.categoryInfo,
-  bannerList: state.home.bannerList,
-  articleList: state.home.articleList,
+  siteInfo: state.common.siteInfo || {},
+  categoryList: state.common.categoryList || [],
+  bannerList: state.home.bannerList || [],
+  articleList: state.home.articleList || [],
   total: state.home.total,
   currentPage: state.home.currentPage
 })
