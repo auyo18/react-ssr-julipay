@@ -28,11 +28,16 @@ class Header extends PureComponent {
         <div className="container clearfix">
           <h1 className="logo">
             <NavLink to="/">
-              <div className="image" style={{backgroundImage: `url(${this.props.siteInfo.logo})`}} />
+              <div className="image" style={{backgroundImage: `url(${this.props.siteInfo.logo || ''})`}}/>
               <span>{this.props.siteInfo.title}</span>
             </NavLink>
           </h1>
           <nav className={`${this.state.showNav ? ' show' : ''}`}>
+            <p className="hide">
+              <span className="btn" onClick={() => {
+                this.setNav(false)
+              }}>✕</span>
+            </p>
             <NavLink to="/" className="item">首页</NavLink>
             {
               this.props.categoryList && this.props.categoryList.map(item => (
@@ -42,12 +47,12 @@ class Header extends PureComponent {
           </nav>
           <div className={`mask${this.state.showNav ? ' show' : ''}`} onClick={() => {
             this.setNav(false)
-          }} />
+          }}/>
           <div className="nav-button">
             <svg className="icon" aria-hidden="true" onClick={() => {
               this.setNav(true)
             }}>
-              <use xlinkHref="#icon-caidan" />
+              <use xlinkHref="#icon-caidan"/>
             </svg>
           </div>
         </div>

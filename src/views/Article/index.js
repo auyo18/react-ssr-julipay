@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Helmet from 'react-helmet'
 import {NavLink} from 'react-router-dom'
 import NotFound from '../NotFound'
-import {SITE_NAME} from '../../config'
+import {SITE_NAME, SITE_SUB_NAME} from '../../config'
 import {
   setArticle,
   setArticleContent
@@ -36,12 +36,12 @@ class Article extends PureComponent {
     const {siteInfo, articleContent, articleNotFound, staticContext} = this.props
     return (
       articleNotFound ?
-        <NotFound staticContext={staticContext} /> :
+        <NotFound staticContext={staticContext}/> :
         <Fragment>
           <Helmet>
-            <title>{articleContent && articleContent.title || siteInfo && siteInfo.subtitle || SITE_NAME} - {siteInfo && siteInfo.title || SITE_NAME}</title>
-            <meta name="keywords" content={`${articleContent && articleContent.keyword}`} />
-            <meta name="description" content={`${articleContent && articleContent.description}`} />
+            <title>{articleContent && articleContent.title || siteInfo && siteInfo.subtitle || SITE_SUB_NAME} - {siteInfo && siteInfo.title || SITE_NAME}</title>
+            <meta name="keywords" content={`${articleContent && articleContent.keyword || ''}`}/>
+            <meta name="description" content={`${articleContent && articleContent.description || ''}`}/>
           </Helmet>
           <div className="article container clearfix">
             <div className="main">
@@ -75,10 +75,10 @@ class Article extends PureComponent {
                 <span className="author">{articleContent.author}</span>
               </p>
               <div className="content-wrapper">
-                <div className="content" dangerouslySetInnerHTML={{__html: articleContent.content}} />
+                <div className="content" dangerouslySetInnerHTML={{__html: articleContent.content}}/>
                 <div className="tag">
                   <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-biaoqian" />
+                    <use xlinkHref="#icon-biaoqian"/>
                   </svg>
                   {
                     articleContent.keyword && articleContent.keyword.split(',').map(tag => (
@@ -100,7 +100,7 @@ class Article extends PureComponent {
                 </div>
               </div>
             </div>
-            <Side hideRecommend={true} />
+            <Side hideRecommend={true}/>
           </div>
         </Fragment>
     )

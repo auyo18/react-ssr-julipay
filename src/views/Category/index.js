@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom"
 import Side from '../../layouts/Side'
 import ArticleList from '../../layouts/ArticleList'
 import NotFound from '../../views/NotFound'
-import {SITE_NAME, ARTICLE_LENGTH} from '../../config'
+import {SITE_NAME, ARTICLE_LENGTH, SITE_SUB_NAME} from '../../config'
 import {setCategory, setArticleList, CURRENT_PAGE} from './store/actions'
 import whiteComponent from '../../Hoc/whiteComponent'
 import './index.scss'
@@ -101,12 +101,12 @@ class Category extends PureComponent {
   render() {
     return (
       this.state.notFound ?
-        <NotFound staticContext={this.props.staticContext} /> :
+        <NotFound staticContext={this.props.staticContext}/> :
         <Fragment>
           <Helmet>
-            <title>{this.state.category && this.state.category.name || this.props.siteInfo && this.props.siteInfo.subtitle} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
-            <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword}`} />
-            <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description}`} />
+            <title>{this.state.category && this.state.category.name || this.props.siteInfo && this.props.siteInfo.subtitle || SITE_SUB_NAME} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
+            <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword || ''}`}/>
+            <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description || ''}`}/>
           </Helmet>
           <div className="category container clearfix">
             <div className="main">
@@ -119,9 +119,9 @@ class Category extends PureComponent {
                 articleList={this.props.articleList}
                 loading={this.state.loading}
                 hasMore={this.state.hasMore}
-                getMoreArticle={this.getMoreArticle} />
+                getMoreArticle={this.getMoreArticle}/>
             </div>
-            <Side />
+            <Side/>
           </div>
         </Fragment>
     )
@@ -132,8 +132,8 @@ Category.loadData = (store, path) => store.dispatch(setCategory(store, path))
 
 const mapStateToProps = state => ({
   siteInfo: state.common.siteInfo || {},
-  categoryList: state.common.categoryList|| [],
-  articleList: state.category.articleList|| [],
+  categoryList: state.common.categoryList || [],
+  articleList: state.category.articleList || [],
   total: state.category.total,
   currentPage: state.category.currentPage
 })

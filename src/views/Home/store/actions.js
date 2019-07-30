@@ -61,3 +61,8 @@ export const CURRENT_PAGE = currentPage => ({
   type: types.SET_CURRENT_PAGE,
   currentPage
 })
+
+export const CATEGORY_INDEX = categoryIndex => ({
+  type: types.SET_CATEGORY_INDEX,
+  categoryIndex
+})

@@ -8,6 +8,9 @@ import {getClientStore} from "../store"
 import 'slick-carousel/slick/slick.scss'
 import 'slick-carousel/slick/slick-theme.scss'
 import '../assets/styles/index.scss'
+import VConsole from 'vconsole'
+
+new VConsole()
 
 require('../../static/js/font')
 
@@ -24,6 +27,6 @@ const App = () => {
 }
 
 ReactDom.hydrate(
-  <App />,
+  <App/>,
   document.getElementById('root')
 )

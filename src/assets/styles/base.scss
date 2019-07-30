@@ -167,3 +167,44 @@ code {
   white-space: normal;
   word-break: break-all;
 }
+
+.image-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-small;
+  overflow: hidden;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    display: block;
+    padding-top: 66.66666%;
+  }
+
+  .image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $color-background-q;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 1s;
+
+    &:hover {
+      transform: scale(1.12);
+    }
+  }
+}
+
+.ellipsis-2 {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+}

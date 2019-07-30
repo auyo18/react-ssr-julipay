@@ -14,18 +14,18 @@ class ArticleList extends PureComponent {
               <div className="item clearfix" key={item._id}>
                 <div className="mask" />
                 <div className="content">
-                  <NavLink to={`/article/${item._id}`}>
+                  <NavLink className="image-box" to={`/article/${item._id}`}>
                     <div
                       className="image"
                       style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail + '?imageView2/1/w/520/h/300/q/75|imageslim' : ''}) `}} />
                   </NavLink>
                   <div className="info">
-                    <h2 className="title">
+                    <h2 className="title ellipsis-2">
                       <NavLink to={`/article/${item._id}`}>
                         {item.title}
                       </NavLink>
                     </h2>
-                    <p className="description">
+                    <p className="description ellipsis-2">
                       <NavLink to={`/article/${item._id}`}>
                         {item.description && item.description.slice(0, 50)}
                       </NavLink>

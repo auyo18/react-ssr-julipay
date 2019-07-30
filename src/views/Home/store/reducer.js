@@ -4,7 +4,8 @@ const defaultState = {
   bannerList: [],
   articleList: [],
   total: 0,
-  currentPage: 1
+  currentPage: 1,
+  categoryIndex: 0
 }
 
 export default (state = defaultState, action) => {
@@ -24,6 +25,10 @@ export default (state = defaultState, action) => {
     case types.SET_CURRENT_PAGE:
       return Object.assign({}, state, {
         currentPage: action.currentPage
+      })
+    case types.SET_CATEGORY_INDEX:
+      return Object.assign({}, state, {
+        categoryIndex: action.categoryIndex
       })
     default:
       return state

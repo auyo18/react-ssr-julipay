@@ -14,19 +14,7 @@
         &:after {
           content: '';
           display: block;
-          padding-top: 65%;
-        }
-
-        .image {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: $color-background-q;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
+          padding-top: 66.66666%;
         }
 
         .text {
