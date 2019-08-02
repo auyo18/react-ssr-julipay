@@ -8,7 +8,8 @@ export const setCategory = (store, path) => async dispatch => {
   await dispatch(setInfo())
   let category = 0
   const ary = path.split('/')
-  const name = ary[ary.length - 1]
+  const name = ary[2]
+  console.log(name)
   const categoryList = store.getState().common.categoryList
   const currentCategory = categoryList.filter(item => (
     item.slug === name
@@ -16,11 +17,11 @@ export const setCategory = (store, path) => async dispatch => {
   if (currentCategory.length) {
     category = currentCategory[0]._id
   }
-  await dispatch(setArticleList({category, limit: ARTICLE_LENGTH}, [], store))
+  await dispatch(setArticleList({category, limit: ARTICLE_LENGTH}))
   await dispatch(setSideData())
 }
 
-export const setArticleList = (params, curList) => async dispatch => {
+export const setArticleList = (params, curList = []) => async dispatch => {
   try {
     let {code, data: list, total} = await getArticleList(params)
     if (params.page > 1) {

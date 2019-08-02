@@ -3,6 +3,7 @@ import Layout from './layouts/Layout'
 import Home from './views/Home'
 import Category from './views/Category'
 import Article from './views/Article'
+import Tag from './views/Tag'
 import NotFound from './views/NotFound'
 
 const routes = [
@@ -27,6 +28,12 @@ const routes = [
         component: Article,
         loadData: Article.loadData,
         key: 'article'
+      },
+      {
+        path: '/tag/:name',
+        component: Tag,
+        loadData: Tag.loadData,
+        key: 'tag'
       },
       {
         path: '/error',

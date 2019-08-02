@@ -64,6 +64,8 @@
       margin: .8rem 0;
       line-height: 2;
       border-bottom: 1px solid $color-background-q;
+      word-wrap:break-word;
+      overflow: hidden;
 
       p {
         margin-bottom: .4rem;

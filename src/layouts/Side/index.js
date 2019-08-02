@@ -4,6 +4,7 @@ import {dateFormat} from "../../utils"
 import {setOneRandomArticle, setPolymerizationArticle, setRecommendArticle} from "./store/actions"
 import './index.scss'
 import {NavLink} from "react-router-dom"
+import LazyLoad from "react-lazyload"
 
 class Side extends PureComponent {
   constructor(props) {
@@ -50,7 +51,7 @@ class Side extends PureComponent {
             <div className="mask"/>
             <div className="avatar">
               <div className="img"
-                   style={{backgroundImage: 'url(http://image.julipay.com/b829ce62-6828-d73e-8c7c-45efaa3036b2)'}}/>
+                   style={{backgroundImage: 'url(https://image.julipay.com/b829ce62-6828-d73e-8c7c-45efaa3036b2)'}}/>
             </div>
           </div>
           <div className="meta">
@@ -103,7 +104,7 @@ class Side extends PureComponent {
             <Fragment>
               <NavLink className="image-box" to={`/article/${this.props.oneRandomArticle[0]._id}`}>
                 <div className="image"
-                     style={{backgroundImage: `url(${this.props.oneRandomArticle[0].thumbnail ? this.props.oneRandomArticle[0].thumbnail + '?imageView2/1/w/540/h/600/q/75|imageslim' : ''})`}}/>
+                     style={{backgroundImage: `url(${this.props.oneRandomArticle[0].thumbnail ? this.props.oneRandomArticle[0].thumbnail : ''})`}}/>
               </NavLink>
               <div className="bottom">
                 <p>
@@ -150,16 +151,18 @@ class Side extends PureComponent {
                   <div className={`article clearfix ${index < 2 ? 'background' : 'column'}`} key={article._id}>
                     <div className="index one">{index + 1}</div>
                     <NavLink className="image-box" to={`/article/${article._id}`}>
-                      <div
-                        className="image"
-                        style={{backgroundImage: `url(${article.thumbnail ? article.thumbnail + '?imageView2/1/w/500/h/375/q/75|imageslim' : ''})`}}/>
+                      <LazyLoad once offset={100}>
+                        <div
+                          className="image"
+                          style={{backgroundImage: `url(${article.thumbnail ? article.thumbnail : ''})`}}/>
+                      </LazyLoad>
                     </NavLink>
                     {
                       index < 2 ?
                         <NavLink to={`/article/${article._id}`}>
                           <div className="text-wrapper">
                             <div className="text">
-                              <p className="title">
+                              <p className="title ellipsis-2">
                                 {article.title}
                               </p>
                             </div>

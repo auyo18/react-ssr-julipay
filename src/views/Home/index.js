@@ -121,7 +121,7 @@ class Home extends PureComponent {
                       <NavLink className="image-box" to={`/article/${item._id}`}>
                         <div
                           className="image"
-                          style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail + '?imageView2/1/w/1000/h/650/q/75|imageslim' : ''}) `}}>
+                          style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail : ''}) `}}>
                         </div>
                         <div className="text">
                           <p className="category">

@@ -63,7 +63,6 @@ class Category extends PureComponent {
   }
 
   getCategory = categoryName => {
-
     const category = this.props.categoryList.filter(item => (
       item.slug === categoryName
     ))
@@ -72,7 +71,7 @@ class Category extends PureComponent {
         category: category[0],
         notFound: false
       }), () => {
-        if (this.props.articleList.length > 0 && this.props.articleList[0].category.slug === categoryName) return
+        if (this.props.articleList.length > 0 && this.props.articleList[0].category && this.props.articleList[0].category.slug === categoryName) return
         this.props.setArticleList({
           category_id: this.state.category._id,
           limit: ARTICLE_LENGTH
@@ -99,29 +98,31 @@ class Category extends PureComponent {
   }
 
   render() {
+    const {siteInfo} = this.props
+    const {category} = this.state
     return (
       this.state.notFound ?
-        <NotFound staticContext={this.props.staticContext}/> :
+        <NotFound staticContext={this.props.staticContext} /> :
         <Fragment>
           <Helmet>
-            <title>{this.state.category && this.state.category.name || this.props.siteInfo && this.props.siteInfo.subtitle || SITE_SUB_NAME} - {this.props.siteInfo && this.props.siteInfo.title || SITE_NAME}</title>
-            <meta name="keywords" content={`${this.props.siteInfo && this.props.siteInfo.keyword || ''}`}/>
-            <meta name="description" content={`${this.props.siteInfo && this.props.siteInfo.description || ''}`}/>
+            <title>{category && category.name || siteInfo && siteInfo.subtitle || SITE_SUB_NAME} - {siteInfo && siteInfo.title || SITE_NAME}</title>
+            <meta name="keywords" content={`${siteInfo && siteInfo.keyword || ''}`} />
+            <meta name="description" content={`${siteInfo && siteInfo.description || ''}`} />
           </Helmet>
           <div className="category container clearfix">
             <div className="main">
               <div className="breadcrumb">
                 <span><NavLink to="/">首页</NavLink></span>
                 <span className="arrow">›</span>
-                <span className="current">{this.state.category && this.state.category.name}</span>
+                <span className="current">{category && category.name}</span>
               </div>
               <ArticleList
                 articleList={this.props.articleList}
                 loading={this.state.loading}
                 hasMore={this.state.hasMore}
-                getMoreArticle={this.getMoreArticle}/>
+                getMoreArticle={this.getMoreArticle} />
             </div>
-            <Side/>
+            <Side />
           </div>
         </Fragment>
     )

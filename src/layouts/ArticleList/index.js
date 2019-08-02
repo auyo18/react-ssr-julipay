@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
-import {NavLink} from "react-router-dom"
+import {NavLink} from 'react-router-dom'
+import LazyLoad from 'react-lazyload'
 import {dateFormat} from "../../utils"
 import './index.scss'
 
@@ -12,12 +13,14 @@ class ArticleList extends PureComponent {
           {
             articleList && articleList.length > 0 && articleList.map(item => (
               <div className="item clearfix" key={item._id}>
-                <div className="mask" />
+                <div className="mask"/>
                 <div className="content">
                   <NavLink className="image-box" to={`/article/${item._id}`}>
-                    <div
-                      className="image"
-                      style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail + '?imageView2/1/w/520/h/300/q/75|imageslim' : ''}) `}} />
+                    <LazyLoad once offset={100}>
+                      <div
+                        className="image"
+                        style={{backgroundImage: `url(${item.thumbnail ? item.thumbnail : ''}) `}}/>
+                    </LazyLoad>
                   </NavLink>
                   <div className="info">
                     <h2 className="title ellipsis-2">
@@ -27,7 +30,7 @@ class ArticleList extends PureComponent {
                     </h2>
                     <p className="description ellipsis-2">
                       <NavLink to={`/article/${item._id}`}>
-                        {item.description && item.description.slice(0, 50)}
+                        {item.description && item.description}
                       </NavLink>
                     </p>
                     <p className="bottom">
@@ -48,7 +51,7 @@ class ArticleList extends PureComponent {
           loading ?
             <div className="loading">
               <svg className="icon" aria-hidden="true">
-                <use xlinkHref="#icon-loading" />
+                <use xlinkHref="#icon-loading"/>
               </svg>
             </div> : hasMore ?
             <button onClick={getMoreArticle} className="more">加载更多</button> :

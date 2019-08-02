@@ -20,7 +20,7 @@
       .bg {
         height: 4rem;
         background-color: $color-background-q;
-        background-image: url("http://image.julipay.com/3f9efcc9-a5ed-1a80-888f-da821db5315b");
+        background-image: url("https://image.julipay.com/3f9efcc9-a5ed-1a80-888f-da821db5315b");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -350,13 +350,14 @@
           width: 100%;
           height: 50%;
           color: $color-background;
-          padding: 0 .2rem;
           border-radius: $border-radius-small;
+          overflow: hidden;
           z-index: 11;
 
           .text {
             position: absolute;
             bottom: .2rem;
+            padding: 0 .2rem;
           }
         }
       }

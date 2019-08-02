@@ -4,6 +4,7 @@ import homeReducer from '../views/Home/store/reducer'
 import sideReducer from '../layouts/Side/store/reducer'
 import categoryReducer from '../views/Category/store/reducer'
 import articleReducer from '../views/Article/store/reducer'
+import tagReducer from '../views/Tag/store/reducer'
 
 const defaultState = {
   siteInfo: {},
@@ -30,7 +31,8 @@ const reducer = combineReducers({
   home: homeReducer,
   side: sideReducer,
   category: categoryReducer,
-  article: articleReducer
+  article: articleReducer,
+  tag: tagReducer
 })
 
 export default reducer

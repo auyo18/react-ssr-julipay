@@ -10,7 +10,11 @@ import 'slick-carousel/slick/slick-theme.scss'
 import '../assets/styles/index.scss'
 import VConsole from 'vconsole'
 
-new VConsole()
+const isDev = process.env.NODE_ENV === 'development'
+
+if (isDev) {
+  new VConsole()
+}
 
 require('../../static/js/font')
 
@@ -27,6 +31,6 @@ const App = () => {
 }
 
 ReactDom.hydrate(
-  <App/>,
+  <App />,
   document.getElementById('root')
 )

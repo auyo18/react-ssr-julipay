@@ -1,7 +1,10 @@
 @import "../../assets/styles/mixin";
 
 .article-wrapper {
-  margin: .8rem .2rem .8rem 0;
+  margin: .4rem .2rem .4rem 0;
+  @media (min-width: 992px) {
+    margin: .8rem .2rem .8rem 0;
+  }
 
   .article-list {
     .item {

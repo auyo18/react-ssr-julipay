@@ -45,6 +45,7 @@ class Header extends PureComponent {
               ))
             }
           </nav>
+          <p className="search-btn">搜索</p>
           <div className={`mask${this.state.showNav ? ' show' : ''}`} onClick={() => {
             this.setNav(false)
           }}/>

@@ -6,7 +6,7 @@ import {setSideData} from "../../../layouts/Side/store/actions"
 
 export const setArticle = (path) => async dispatch => {
   const ary = path.split('/')
-  const _id = ary[ary.length - 1]
+  const _id = ary[2]
   await dispatch(setInfo())
   await dispatch(setArticleContent({_id}))
   await dispatch(setSideData())

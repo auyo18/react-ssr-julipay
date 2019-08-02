@@ -3,10 +3,13 @@
 .home {
   .main {
     .banner {
-      margin: .8rem 0;
+      margin: .4rem 0;
       font-size: 0;
       border-radius: $border-radius-small;
       overflow: hidden;
+      @media (min-width: 992px) {
+        margin: .8rem 0;
+      }
 
       .item {
         position: relative;

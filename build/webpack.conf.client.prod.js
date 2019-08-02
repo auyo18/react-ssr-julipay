@@ -9,10 +9,10 @@ const config = merge(baseConfig, {
   mode: 'production',
   entry: ['@babel/polyfill', path.join(__dirname, '../src/client/index.js')],
   output: {
-    filename: 'js/[name].[chunkhash:8].js',
-    chunkFilename: 'js/[name].[chunkhash:8].js',
+    filename: 'js/[name].[contenthash:8].js',
+    chunkFilename: 'js/[name].[contenthash:8].js',
     path: path.join(__dirname, '../dist/static'),
-    publicPath: '/'
+    publicPath: '//static.julipay.com/blog/'
   },
   module: {
     rules: [

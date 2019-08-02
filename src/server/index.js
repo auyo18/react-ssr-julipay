@@ -1,10 +1,10 @@
 import React from 'react'
-import path from "path"
+import path from 'path'
 import Koa from 'koa'
 import Static from 'koa-static'
-import staticCache from 'koa-static-cache'
-import {render} from "../utils"
-import {getStore} from "../store"
+import compress from 'koa-compress'
+import {render} from '../utils'
+import {getStore} from '../store'
 import {matchRoutes} from 'react-router-config'
 import routes from '../routes'
 
@@ -12,13 +12,11 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const app = new Koa()
 
-if (!isDev) {
-  app.use(staticCache(path.join(__dirname, '/'), {
-    maxAge: 365 * 24 * 60 * 60
-  }))
-}
+app.use(compress({threshold: 2048}))
 
-app.use(Static(path.join(__dirname, '/')))
+if (isDev) {
+  app.use(Static(path.join(__dirname, '/')))
+}
 
 app.use(async ctx => {
   const context = {}
@@ -43,4 +41,4 @@ app.use(async ctx => {
   }
 })
 
-app.listen(3007)
+app.listen(3000)
