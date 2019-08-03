@@ -58,9 +58,11 @@
           }
         }
 
-        &:hover {
-          img {
-            transform: scale(1.1);
+        @media (min-width: 992px) {
+          &:hover {
+            img {
+              transform: scale(1.1);
+            }
           }
         }
       }

@@ -1,41 +1,53 @@
 import React, {PureComponent} from 'react'
 import {connect} from "react-redux"
-import {NavLink} from 'react-router-dom'
-import {setInfo} from "../../store/actions"
+import {NavLink, withRouter} from 'react-router-dom'
+import {setNavState, setSearchState} from './store/actions'
 import './index.scss'
 
 class Header extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      showNav: false
+      keyword: ''
     }
   }
 
-  componentWillMount() {
-    (!this.props.siteInfo.title || !this.props.categoryList.length) && this.props.setInfo()
+  setKeyword = e => {
+    const keyword = e.target.value
+    this.setState(() => ({
+      keyword: keyword.trim()
+    }))
   }
 
-  setNav = (status) => {
-    this.setState(() => ({
-      showNav: status
-    }))
+  search = e => {
+    if (e.nativeEvent.keyCode === 13) {
+      this.props.history.push(`/search/${this.state.keyword}`)
+      this.props.setSearchState(false)
+    }
+  }
+
+  deleteKeyword = () => {
+    if (this.state.keyword) {
+      this.setState(() => ({
+        keyword: ''
+      }))
+    }
   }
 
   render() {
     return (
-      <header className="header">
-        <div className="container clearfix">
+      <header className="header-wrapper">
+        <div className="header container clearfix">
           <h1 className="logo">
             <NavLink to="/">
-              <div className="image" style={{backgroundImage: `url(${this.props.siteInfo.logo || ''})`}}/>
+              <div className="image" style={{backgroundImage: `url(${this.props.siteInfo.logo || ''})`}} />
               <span>{this.props.siteInfo.title}</span>
             </NavLink>
           </h1>
-          <nav className={`${this.state.showNav ? ' show' : ''}`}>
+          <nav className={`${this.props.showNav ? 'show' : ''}`}>
             <p className="hide">
               <span className="btn" onClick={() => {
-                this.setNav(false)
+                this.props.setNavState(false)
               }}>✕</span>
             </p>
             <NavLink to="/" className="item">首页</NavLink>
@@ -45,16 +57,33 @@ class Header extends PureComponent {
               ))
             }
           </nav>
-          <p className="search-btn">搜索</p>
-          <div className={`mask${this.state.showNav ? ' show' : ''}`} onClick={() => {
-            this.setNav(false)
-          }}/>
+          <div className="search-btn" onClick={() => {
+            this.props.setSearchState(!this.props.showSearch)
+          }}>
+            <svg className="icon" aria-hidden="true">
+              <use xlinkHref={this.props.showSearch ? '#icon-guanbi' : '#icon-sousuo'} />
+            </svg>
+          </div>
+          <div className={`mask${this.props.showNav ? ' show' : ''}`} onClick={() => {
+            this.props.setNavState(false)
+          }} />
           <div className="nav-button">
             <svg className="icon" aria-hidden="true" onClick={() => {
-              this.setNav(true)
+              this.props.setNavState(true)
             }}>
-              <use xlinkHref="#icon-caidan"/>
+              <use xlinkHref="#icon-caidan" />
             </svg>
+          </div>
+        </div>
+        <div className={'search-wrapper' + (this.props.showSearch ? '' : ' hide')}>
+          <div className="search container">
+            <input type="text" placeholder="输入关键词，回车搜索" value={this.state.keyword} onChange={this.setKeyword}
+                   onKeyPress={this.search} />
+            <div className={'deleteKeyword' + (this.state.keyword ? '' : ' hide')}>
+              <svg className="icon" aria-hidden="true" onClick={this.deleteKeyword}>
+                <use xlinkHref="#icon-guanbi1" />
+              </svg>
+            </div>
           </div>
         </div>
       </header>
@@ -64,16 +93,18 @@ class Header extends PureComponent {
 
 const mapStateToProps = state => ({
   siteInfo: state.common.siteInfo || {},
-  categoryList: state.common.categoryList || []
+  categoryList: state.common.categoryList || [],
+  showNav: state.header.showNav,
+  showSearch: state.header.showSearch
 })
 
 const mapDispatchToProps = dispatch => ({
-  setInfo() {
-    dispatch(setInfo())
+  setNavState(showNav) {
+    dispatch(setNavState(showNav))
+  },
+  setSearchState(showSearch) {
+    dispatch(setSearchState(showSearch))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps, null,
-  {
-    forwardRef: true
-  })(Header)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

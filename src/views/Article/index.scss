@@ -2,26 +2,6 @@
 
 .article {
   .main {
-    .breadcrumb {
-      margin: .4rem 0;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      @media (min-width: 992px) {
-        margin: .8rem 0;
-      }
-
-      span {
-        font-size: $font-size-small;
-        display: inline-block;
-        margin-right: .2rem;
-
-        &.arrow, &.current {
-          color: $color-text-l;
-        }
-      }
-    }
-
     .category {
       margin: .2rem 0;
 
@@ -34,9 +14,10 @@
         padding: .1rem .15rem;
         transition: background-color .3s;
         border-radius: $border-radius-small;
-
-        &:hover {
-          background-color: darken($color-theme-s, 10%);
+        @media (min-width: 992px) {
+          &:hover {
+            background-color: darken($color-theme-s, 10%);
+          }
         }
       }
     }
@@ -61,11 +42,14 @@
     }
 
     .content-wrapper {
-      margin: .8rem 0;
+      margin: .4rem 0;
       line-height: 2;
       border-bottom: 1px solid $color-background-q;
-      word-wrap:break-word;
+      word-wrap: break-word;
       overflow: hidden;
+      @media (min-width: 992px) {
+        margin: .8rem 0;
+      }
 
       p {
         margin-bottom: .4rem;
@@ -120,11 +104,13 @@
           transition: width .3s;
         }
 
-        &:hover {
-          padding-left: .6rem;
+        @media (min-width: 992px) {
+          &:hover {
+            padding-left: .6rem;
 
-          &::before {
-            width: .4rem;
+            &::before {
+              width: .4rem;
+            }
           }
         }
       }

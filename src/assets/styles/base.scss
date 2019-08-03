@@ -66,10 +66,11 @@ html {
 
 a {
   transition: color .3s;
-}
-
-a:hover {
-  color: $color-theme;
+  @media (min-width: 992px) {
+    &:hover {
+      color: $color-theme;
+    }
+  }
 }
 
 .clearfix::after {
@@ -165,7 +166,7 @@ pre {
 code {
   display: block;
   white-space: normal;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
 .image-box {
@@ -193,9 +194,10 @@ code {
     background-position: center;
     background-repeat: no-repeat;
     transition: transform 1s;
-
-    &:hover {
-      transform: scale(1.12);
+    @media (min-width: 992px) {
+      &:hover {
+        transform: scale(1.12);
+      }
     }
   }
 }
@@ -207,4 +209,24 @@ code {
   text-overflow: ellipsis;
   word-break: break-all;
   -webkit-line-clamp: 2;
+}
+
+input {
+  background-color: $color-background-b;
+  border-radius: $border-radius-small;
+  padding: 0 .3rem;
+}
+
+.breadcrumb {
+  margin: .8rem 0;
+
+  span {
+    font-size: $font-size-small;
+    display: inline-block;
+    margin-right: .2rem;
+
+    &.arrow, &.current {
+      color: $color-text-l;
+    }
+  }
 }

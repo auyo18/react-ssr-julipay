@@ -48,7 +48,7 @@ class Article extends PureComponent {
               <div className="breadcrumb">
                 <span><NavLink to="/">首页</NavLink></span>
                 <span className="arrow">›</span>
-                <span className="category">
+                <span>
                   {
                     articleContent.category &&
                     <NavLink to={`/category/${articleContent.category.slug}`}>

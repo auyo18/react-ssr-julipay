@@ -5,14 +5,10 @@ import Footer from '../Footer'
 import ToTop from '../ToTop'
 
 class Layout extends PureComponent {
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.refs.header.setNav(false)
-  }
-
   render() {
     return (
       <Fragment>
-        <Header ref="header" />
+        <Header />
         {
           renderRoutes(this.props.route.routes)
         }

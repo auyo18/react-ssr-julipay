@@ -109,8 +109,9 @@ class Side extends PureComponent {
               <div className="bottom">
                 <p>
                   <span className="badge">随机一文</span>
-                  <span className={`switch${this.state.switchRotate ? ' rotate' : ''}`}
-                        onClick={this.setOneRandomArticle}>↻</span>
+                  <svg className={`icon switch${this.state.switchRotate ? ' rotate' : ''}`} aria-hidden="true" onClick={this.setOneRandomArticle}>
+                    <use xlinkHref="#icon-shuaxin" />
+                  </svg>
                 </p>
                 <p className="title">
                   <NavLink to={`/article/${this.props.oneRandomArticle[0]._id}`}>

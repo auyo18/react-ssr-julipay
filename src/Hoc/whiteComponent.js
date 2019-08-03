@@ -1,13 +1,17 @@
 import React, {PureComponent} from 'react'
+import {connect} from 'react-redux'
+import {setNavState} from '../layouts/Header/store/actions'
 
 export default (DecoratedComponent) => {
   class NewComponent extends PureComponent {
-    componentWillMount() {
+    componentWillMount = () => {
+      this.hideNav()
       this.goTop()
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps = (nextProps, nextContext) => {
       if (this.props.location.pathname !== nextProps.location.pathname) {
+        this.hideNav()
         this.goTop()
       }
     }
@@ -20,12 +24,27 @@ export default (DecoratedComponent) => {
       }
     }
 
-    render() {
+    hideNav = () => {
+      this.props.showNav && this.props.setNavState(false)
+    }
+
+    render = () => {
       return <DecoratedComponent {...this.props} />
     }
   }
 
   NewComponent.loadData = (store, patch) => DecoratedComponent.loadData(store, patch)
 
-  return NewComponent
+  const mapStateToProps = state => ({
+    showNav: state.header.showNav,
+    showSearch: state.header.showSearch
+  })
+
+  const mapDispatchToProps = dispatch => ({
+    setNavState(showNav) {
+      dispatch(setNavState(showNav))
+    }
+  })
+
+  return connect(mapStateToProps, mapDispatchToProps)(NewComponent)
 }

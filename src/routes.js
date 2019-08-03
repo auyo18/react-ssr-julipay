@@ -4,6 +4,7 @@ import Home from './views/Home'
 import Category from './views/Category'
 import Article from './views/Article'
 import Tag from './views/Tag'
+import Search from './views/Search'
 import NotFound from './views/NotFound'
 
 const routes = [
@@ -34,6 +35,12 @@ const routes = [
         component: Tag,
         loadData: Tag.loadData,
         key: 'tag'
+      },
+      {
+        path: '/search/:name',
+        component: Search,
+        loadData: Search.loadData,
+        key: 'search'
       },
       {
         path: '/error',

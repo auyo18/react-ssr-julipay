@@ -8,7 +8,6 @@ import NotFound from '../../views/NotFound'
 import {SITE_NAME, ARTICLE_LENGTH, SITE_SUB_NAME} from '../../config'
 import {setCategory, setArticleList, CURRENT_PAGE} from './store/actions'
 import whiteComponent from '../../Hoc/whiteComponent'
-import './index.scss'
 
 class Category extends PureComponent {
   constructor(props) {

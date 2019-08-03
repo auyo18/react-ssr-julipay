@@ -3,14 +3,14 @@ import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
 import {ARTICLE_LENGTH, SITE_NAME} from '../../config'
 import whiteComponent from '../../Hoc/whiteComponent'
-import {setTag} from "./store/actions"
-import Side from "../../layouts/Side"
-import ArticleList from "../../layouts/ArticleList"
-import {CURRENT_PAGE, TAG_NAME} from "./store/actions"
+import {SEARCH_NAME, setSearch} from './store/actions'
+import Side from '../../layouts/Side'
+import ArticleList from '../../layouts/ArticleList'
+import {CURRENT_PAGE} from './store/actions'
 import {setArticleList} from './store/actions'
 import {NavLink} from "react-router-dom"
 
-class Tag extends PureComponent {
+class Search extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,15 +22,14 @@ class Tag extends PureComponent {
   }
 
   componentWillMount() {
-    this.getArticleList()
+    this.getArticleList(this.props.match.params.name)
     this.setHasMore()
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      console.log(this.props.match.params.name)
       this.initState()
-      this.getArticleList()
+      this.getArticleList(nextProps.match.params.name)
       this.props.setCurrentPage(1)
     }
 
@@ -48,11 +47,14 @@ class Tag extends PureComponent {
     }
   }
 
-  getArticleList() {
-    (this.props.name !== this.props.match.params.name || !this.props.articleList.length) && this.props.setArticleList({
-      keyword: this.props.match.params.name,
-      limit: ARTICLE_LENGTH
-    })
+  getArticleList(nextName) {
+    if (this.props.name !== nextName || !this.props.articleList.length) {
+      this.props.setSearchName(nextName)
+      this.props.setArticleList({
+        keyword: nextName,
+        limit: ARTICLE_LENGTH
+      })
+    }
   }
 
   initState = () => {
@@ -88,7 +90,7 @@ class Tag extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>{name + ' - 标签'} - {siteInfo && siteInfo.title || SITE_NAME}</title>
+          <title>{name + ' - 搜索'} - {siteInfo && siteInfo.title || SITE_NAME}</title>
           <meta name="keywords" content={`${siteInfo && siteInfo.keyword || ''}`} />
           <meta name="description" content={`${siteInfo && siteInfo.description || ''}`} />
         </Helmet>
@@ -97,7 +99,7 @@ class Tag extends PureComponent {
             <div className="breadcrumb">
               <span><NavLink to="/">首页</NavLink></span>
               <span className="arrow">›</span>
-              <span className="current">标签：{name}</span>
+              <span className="current">搜索：{name}</span>
             </div>
             <ArticleList
               articleList={this.props.articleList}
@@ -112,14 +114,14 @@ class Tag extends PureComponent {
   }
 }
 
-Tag.loadData = (store, path) => store.dispatch(setTag(path))
+Search.loadData = (store, path) => store.dispatch(setSearch(path))
 
 const mapStateToProps = state => ({
   siteInfo: state.common.siteInfo || {},
-  articleList: state.tag.articleList || [],
-  total: state.tag.total,
-  currentPage: state.tag.currentPage,
-  name: state.tag.name
+  articleList: state.search.articleList || [],
+  total: state.search.total,
+  currentPage: state.search.currentPage,
+  name: state.search.name
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -129,9 +131,9 @@ const mapDispatchToProps = dispatch => ({
   setCurrentPage(currentPage) {
     dispatch(CURRENT_PAGE(currentPage))
   },
-  setTagName(name) {
-    dispatch(TAG_NAME(name))
+  setSearchName(name) {
+    dispatch(SEARCH_NAME(name))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(whiteComponent(Tag))
+export default connect(mapStateToProps, mapDispatchToProps)(whiteComponent(Search))

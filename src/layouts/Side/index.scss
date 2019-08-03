@@ -70,9 +70,10 @@
           margin-left: .1rem;
           transition: background-color .3s;
           cursor: pointer;
-
-          &:hover {
-            background-color: darken($color-theme, 10%);
+          @media (min-width: 992px) {
+            &:hover {
+              background-color: darken($color-theme, 10%);
+            }
           }
         }
       }
@@ -116,10 +117,11 @@
             border-radius: 1rem;
             line-height: 1;
             transition: all .3s ease-in-out;
-
-            &:hover {
-              background-color: $color-theme;
-              color: $color-background;
+            @media (min-width: 992px) {
+              &:hover {
+                background-color: $color-theme;
+                color: $color-background;
+              }
             }
           }
 
@@ -137,11 +139,13 @@
             transition: opacity .5s, transform .5s;
           }
 
-          &:hover {
-            .scan-image {
-              visibility: initial;
-              transform: scale(1);
-              opacity: 1;
+          @media (min-width: 992px) {
+            &:hover {
+              .scan-image {
+                visibility: initial;
+                transform: scale(1);
+                opacity: 1;
+              }
             }
           }
         }
@@ -171,13 +175,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      transition: transform 1s, background-image 1s;
-    }
-
-    &:hover {
-      .image {
-        transform: scale(1.1);
-      }
+      transition: transform 1s, background-image .5s;
     }
 
     .bottom {
@@ -207,8 +205,7 @@
 
       .switch {
         float: right;
-        font-size: $font-size-large-x;
-        font-weight: bold;
+        font-size: $font-size-small;
         line-height: 1;
         position: relative;
         user-select: none;

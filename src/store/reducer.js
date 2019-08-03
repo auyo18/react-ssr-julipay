@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux'
 import types from './types'
-import homeReducer from '../views/Home/store/reducer'
+import headerReducer from '../layouts/Header/store/reducer'
 import sideReducer from '../layouts/Side/store/reducer'
+import homeReducer from '../views/Home/store/reducer'
 import categoryReducer from '../views/Category/store/reducer'
 import articleReducer from '../views/Article/store/reducer'
 import tagReducer from '../views/Tag/store/reducer'
+import searchReducer from '../views/Search/store/reducer'
 
 const defaultState = {
   siteInfo: {},
@@ -28,11 +30,13 @@ const commonReducer = (state = defaultState, action) => {
 
 const reducer = combineReducers({
   common: commonReducer,
-  home: homeReducer,
+  header: headerReducer,
   side: sideReducer,
+  home: homeReducer,
   category: categoryReducer,
   article: articleReducer,
-  tag: tagReducer
+  tag: tagReducer,
+  search: searchReducer
 })
 
 export default reducer
